@@ -44,6 +44,6 @@ $
 $ # Access the web app in browser: http://127.0.0.1:8000/
 ```
 
-#####++More Information:++
-[Pivotal Tracker](https://www.pivotaltracker.com/n/projects/2609659)
+##### <u>More Information:</u>  
+[Pivotal Tracker](https://www.pivotaltracker.com/n/projects/2609659)  
 [Github Repository](https://github.com/6310682700/sukejuru)

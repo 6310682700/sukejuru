@@ -47,3 +47,4 @@ $ # Access the web app in browser: http://127.0.0.1:8000/
 #### <ins>More Information:</ins>  
 [Pivotal Tracker](https://www.pivotaltracker.com/n/projects/2609659)  
 [Github Repository](https://github.com/6310682700/sukejuru)
+[Heroku](https://sukejuru.herokuapp.com/)

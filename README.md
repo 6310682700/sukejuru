@@ -1,11 +1,11 @@
 # sukejuru
 Anime Schedule
 
-นายบุลากร จั่นบุญมี 6310682577 
-นายกฤตกร ชัยรัตนารมย์ 6310682692 
-นายณนฐ์ อังสุวพัฒนากุล 6310682700 
-นายคมชาญ สาสนทาญาติ 6310682684 
-นายจิรวัจฒ์ มุกด์สุวรรณ์ 6310611097
+นายบุลากร จั่นบุญมี 6310682577  
+นายกฤตกร ชัยรัตนารมย์ 6310682692   
+นายณนฐ์ อังสุวพัฒนากุล 6310682700  
+นายคมชาญ สาสนทาญาติ 6310682684  
+นายจิรวัจฒ์ มุกด์สุวรรณ์ 6310611097 
 
 #### About this Project:
 - This project is made for subject CN331. This project we made a website that can link to all source of an anime and update anime premiere calendar. This website is made for poeple who love to watch anime alot and want a website to store all path of anime because sometime some company amy not include some of anime that you want to watch so it can link to it immediately.

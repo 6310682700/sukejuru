@@ -2,20 +2,20 @@ from django.db import models
 from django.contrib.auth.models import User
 
 # ที่ทำ class platform, genre และ season เพราะจะได้เรียงตามพวกนี้ละก็ใส่ได้หลายอันได้
-class anime_platform(models.Model):
-    name = models.CharField(max_lenght=99)
+class anime_platforms(models.Model):
+    name = models.CharField(max_length=99)
 
 class genre(models.Model):
-    type = models.CharField(max_lenght=99)
+    type = models.CharField(max_length=99)
 
 class season(models.Model):
-    name = models.CharField(max_lenght=99)
+    name = models.CharField(max_length=99)
 
 class Anime(models.Model):
     anime_id = models.IntegerField(primary_key=True)
-    anime_name = models.CharField(max_lenght=99)
-    description = models.CharField(max_lenght=999)
-    platform = models.ManyToManyField(anime_platform)
+    anime_name = models.CharField(max_length=99)
+    description = models.CharField(max_length=999)
+    platform = models.ManyToManyField(anime_platforms)
     # ที่ใข้แยกทีละอันเพราะจะได้สามารถใส่ anime ที่ออกอากาศ 2 วันต่ออาทิตย์ได้
     MONDAY = models.BooleanField()
     TUESDAY = models.BooleanField()

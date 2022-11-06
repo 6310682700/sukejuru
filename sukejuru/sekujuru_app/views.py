@@ -10,14 +10,17 @@ import re
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect
 from django.urls import reverse
+from .models import AnimePlatform, Genre, Season, Day, Anime, WebUser, Favorite
 
 
 # Create your views here.
 
 def index(request):
+    if request.user.is_superuser:
+        return HttpResponseRedirect(reverse('admin:index'))
     if not request.user.is_authenticated:
         return HttpResponseRedirect(reverse('login'))
-    return render(request, 'about.html', {
+    return render(request, 'home.html', {
     }) 
 
 def login_view(request):
@@ -38,4 +41,11 @@ def logout_view(request):
     logout(request)
     return render(request, 'login.html', {
         'message': 'See you later'
+    })
+
+def home_view(request):
+    anime_list = Anime.objects.all()
+    
+    return render(request, 'home.html', {
+        'Anime_list': anime_list
     })

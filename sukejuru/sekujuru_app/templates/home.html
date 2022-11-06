@@ -1,0 +1,27 @@
+{% extends 'layout.html' %}
+{% block body %}
+
+<div class = "body">
+    <div class = "curve gillfont">
+        <h1 style = "font-size : 37px; padding-top:25px;";>Welcome, {{ request.user.username }}</h1>
+    </div>
+
+    <body class = "gillfont">
+        <p class = "borderbottom" , style = "width : 300px">Username: {{ request.user.username }}</p>   
+        <p class = "borderbottom" , style = "width : 450px">Email: {{ request.user.email }}</p>
+    </body>
+
+    <ul>
+        {% for Anime in Anime_list%}
+        <li style = "width : 450px">
+            <div class = "gillfont margin">
+                <a> {{Anime.anime_name}} </a>
+            </div>
+        </li>
+        {% endfor %}
+    </ul>
+
+    {% endblock %}
+
+
+</div>

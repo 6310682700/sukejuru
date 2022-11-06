@@ -33,7 +33,7 @@ def login_view(request):
             return HttpResponseRedirect(reverse('index'))            
         else:
             return render(request, 'login.html', {
-                'message': 'Your id suck.'
+                'message': 'invalid username or password.'
                 })
     return render(request, 'login.html')
 

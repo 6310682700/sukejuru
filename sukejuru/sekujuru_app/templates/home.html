@@ -1,25 +1,56 @@
 {% extends 'layout.html' %}
 {% block body %}
 
+{% load static %}
+<link rel="stylesheet" href="{% static 'index/home.css' %}" type = "text/css">
+
 <div class = "body">
-    <div class = "curve gillfont">
-        <h1 style = "font-size : 37px; padding-top:25px;";>Welcome, {{ request.user.username }}</h1>
+    <div class = "curve">
+        <h1>Welcome</h1>
     </div>
 
-    <body class = "gillfont">
-        <p class = "borderbottom" , style = "width : 300px">Username: {{ request.user.username }}</p>   
-        <p class = "borderbottom" , style = "width : 450px">Email: {{ request.user.email }}</p>
-    </body>
-
-    <ul>
+{% comment %} 
+    <table>
         {% for Anime in Anime_list%}
-        <li style = "width : 450px">
-            <div class = "gillfont margin">
+        <ul style = "width : 450px">
+            <div class = "gillfont borderbottom">
                 <a> {{Anime.anime_name}} </a>
             </div>
-        </li>
+        </ul>
         {% endfor %}
-    </ul>
+    </table> {% endcomment %}
+
+    <div class="container">
+	
+        <div class="table">
+            <div class="table-header">
+                <div class="header__item"><a id="name" class="filter__link" href="#">Name</a></div>
+                <div class="header__item"><a id="wins" class="filter__link filter__link--number" href="#">Platform</a></div>
+                <div class="header__item"><a id="draws" class="filter__link filter__link--number" href="#">Date</a></div>
+                <div class="header__item"><a id="losses" class="filter__link filter__link--number" href="#">Time</a></div>
+            </div>
+            <div class="table-content">	
+                <div class="table-row">		
+                    <div class="table-data">Blue Lock</div>
+                    <div class="table-data"><a href = "https://www.bilibili.tv/en/play/1066507/12590577?utm_source=hareshi&utm_medium=130298-6162761f7c72e93a00c48069&utm_campaign=632de05e4c4ccf36e9a66f6a">bilibili</a></div>
+                    <div class="table-data">Saturday</div>
+                    <div class="table-data">23.30-24.00</div>
+                </div>
+                <div class="table-row">
+                    <div class="table-data">The Eminence in shadow</div>
+                    <div class="table-data"><a href = "https://www.bilibili.tv/th/play/2069747/12599570?utm_source=hareshi&utm_medium=137822-6162761f7c72e93a00c48069&utm_campaign=6336d65f31a3338e010231b2">bilibili</a></div>
+                    <div class="table-data">Wednesday</div>
+                    <div class="table-data">21:30-22.00</div>
+                </div>
+                <div class="table-row">
+                    <div class="table-data">The Beast Tamer</div>
+                    <div class="table-data"><a href = "https://www.youtube.com/watch?v=3puYB7B2Zu8&list=PLIa05JMgYhhZUyaknLR_L_hb9lgYoi_ON">youtube</a></div>
+                    <div class="table-data">Saturday</div>
+                    <div class="table-data">21:00-21.30</div>
+                </div>
+            </div>	
+        </div>
+    </div>
 
     {% endblock %}
 

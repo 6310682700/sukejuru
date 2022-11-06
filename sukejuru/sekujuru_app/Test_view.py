@@ -1,12 +1,16 @@
+from ast import arg
+from django.test import TestCase, Client
+from django.urls import reverse 
+from django.db.models import Max
+from django.contrib.auth.models import User
 from django.test import TestCase, client
 from .models import AnimePlatform, Genre, Season, Day, Anime, WebUser, Favorite
 from django.urls import reverse 
-from django.contrib.auth.models import User
 
-class testModel(TestCase):
+class testView(TestCase):
 
     def setUp(self):
-        User.objects.create(username = "non")
+        User.objects.create(username = "non", password = "ang")
         AnimePlatform.objects.create(name = "phone")
         AnimePlatform.objects.create(name = "netflix")
         Day.objects.create(name = "Monday")
@@ -21,19 +25,20 @@ class testModel(TestCase):
         WebUser.objects.create(d_user = User.objects.first())
         WebUser.objects.first().fav_anime.set(Anime.objects.all())
     
-    def test_anime_platform(self):
-        animes = Anime.objects.first()
 
-        self.assertEqual(animes.platform.get(name = 'phone').name, "phone")
+    def test_login(self):
+        self.client = Client()
+        response = self.client.post(reverse('login'), {"username": "non","password" :"ang"})
+        self.assertEqual(response.status_code, 200)
+        
 
-    def test_anime_day(self):
-        day = Anime.objects.first()
-        self.assertEqual(day.day.get(name = 'Monday').name, 'Monday')
+    def test_logout(self):
+        self.client = Client()
+        response = self.client.post(reverse('login'), {"username": "non", "password" :"ang"})
+        response = self.client.get(reverse('logout'))
+        self.assertEqual(response.status_code, 200)
 
-    def test_anime_non_day(self):
-        nonday = Anime.objects.first()
-        self.assertNotEqual(nonday.day.get(pk = 1).name, 'Tuesday')
-
-    def test_anime_seasons(self):
-        seasons = Anime.objects.first()
-        self.assertEqual(seasons.season.get(pk = 1).name, 'Winter')
+    def test_user_homepage(self):
+        self.client = Client()
+        response = self.client.post(reverse('home'), {"username": "non","password" :"ang"})
+        self.assertEqual(response.status_code, 200)

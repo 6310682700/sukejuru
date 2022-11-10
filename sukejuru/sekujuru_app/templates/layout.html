@@ -6,9 +6,27 @@
     </head>
 
     <style>
+        .gillfont {     font-size : 25px;
+                        font-family: 'Trebuchet MS', sans-serif; }
+        .pos {          position: absolute;	
+                        top: 8px;
+                        right: 16px;
+                        font-size: 18px; }
+        .logoutpos {    position : absolute;
+                        text-align: right;
+                        vertical-align:top;
+                        top: 2vh;
+                        right : 3vh; 
+                        width: 500px; }
     </style>
 
     <body>
+        {% if request.user.username %}
+            <a class = "pos gillfont" href="{% url 'logout' %}"> Log out </a>
+        {% else %}
+            <a class = "pos gillfont" style="right: 30vh;" href="{% url 'login' %}"> Log in </a>
+            <a class = "pos gillfont" href="{% url 'register' %}"> register </a>
+        {% endif %}
         <div>
             <center>
             {% block body %}
@@ -16,4 +34,6 @@
             </center>
         <div>
     </body>
+    
+    
 </html>

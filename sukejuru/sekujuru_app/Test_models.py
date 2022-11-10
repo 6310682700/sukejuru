@@ -2,7 +2,6 @@ from django.test import TestCase, client
 from .models import AnimePlatform, Genre, Season, Day, Anime, WebUser, Favorite
 from django.urls import reverse 
 from django.contrib.auth.models import User
-
 class testModel(TestCase):
 
     def setUp(self):
@@ -10,10 +9,12 @@ class testModel(TestCase):
         AnimePlatform.objects.create(name = "phone")
         AnimePlatform.objects.create(name = "netflix")
         Day.objects.create(name = "Monday")
+        Day.objects.create(name = "Friday")
         Genre.objects.create(name ="Fantasy")
         Season.objects.create(name = "Winter")
         Anime.objects.create(anime_name ="A", anime_id = "1", time= "09:00", rating = 5)
         Anime.objects.first().day.add(Day.objects.get(id=1))
+        Anime.objects.first().day.add(Day.objects.get(id=2))
         Anime.objects.first().genre.set(Genre.objects.all())
         Anime.objects.first().season.set(Season.objects.all())
         Anime.objects.first().platform.add(AnimePlatform.objects.get(id=1))
@@ -32,7 +33,8 @@ class testModel(TestCase):
 
     def test_anime_non_day(self):
         nonday = Anime.objects.first()
-        self.assertNotEqual(nonday.day.get(pk = 1).name, 'Tuesday')
+        nonday = list(dict(nonday.day.all().values_list()).values())
+        self.assertFalse('Tuesday' in nonday)
 
     def test_anime_seasons(self):
         seasons = Anime.objects.first()

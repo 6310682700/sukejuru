@@ -51,7 +51,7 @@ def login_view(request):
 
 def logout_view(request):
     logout(request)
-    return render(request, 'User/home.html', {
+    return render(request, 'Home/home.html', {
         'message': 'See you later'
     })
 

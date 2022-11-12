@@ -1,18 +1,13 @@
-from re import template
 from django.http import HttpResponse
 from django.shortcuts import render
-from django.template import loader
 from audioop import reverse
-from cgitb import html
-from email import message
-from re import sub
 import datetime
-from django.utils import timezone
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from .models import AnimePlatform, Genre, Season, Day, Anime
 from .form import NewUserForm
+from django.db.models import Q
 
 
 # Create your views here.
@@ -43,7 +38,7 @@ def login_view(request):
         user = authenticate(username=username, password=password)
         if user is not None:
             login(request, user)
-            return HttpResponseRedirect(reverse('index'))            
+            return HttpResponseRedirect(reverse('index'))
         else:
             return render(request, 'User/login.html', {
                 'message': 'invalid username or password.'
@@ -57,7 +52,7 @@ def logout_view(request):
     })
 
 def home_view(request):
-    anime_list = Anime.objects.all()
+    anime_list = Anime.objects.all().order_by("rating")
     
     return render(request, 'Home/home.html', {
         'Anime_list': anime_list
@@ -70,7 +65,7 @@ def calender(request):
         if request_day=="All" or request_day==None:
             anime = Anime.objects.all()
         else:
-            anime = Anime.objects.filter(day__name=request_day)            
+            anime = Anime.objects.filter(day__name=request_day)
         
         day_of_week = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
         x = datetime.datetime.today().weekday()
@@ -88,3 +83,44 @@ def calender(request):
 def about_view(request):
     return render(request, 'Home/about.html', {
     })
+
+def search_view(request):
+    context = {
+        "platform": AnimePlatform.objects.all(),
+        "genre": Genre.objects.all(),
+        "season": Season.objects.all(),        
+    }
+    if request.method == "GET":
+        query = request.GET.get("q")
+        platform = request.GET.get("platform")
+        genre = request.GET.get("genre")
+        season = request.GET.get("season")
+        rating = request.GET.get("rating")
+        day = request.GET.get("day")
+
+        if query==None:
+            search_result = Anime.objects.all().order_by("rating")
+            context.update({"result": search_result})
+        else:
+            search_result = Anime.objects.filter(
+                Q(anime_name__icontains=query) | Q(description__icontains=query), 
+            )
+
+        if platform != "All":
+            search_result = search_result.filter(platform__name=platform)
+
+        if genre != "All":
+            search_result = search_result.filter(genre__name=genre)
+
+        if season != "All":
+            search_result = search_result.filter(season__name=season)
+
+        if rating != "All":
+            search_result = search_result.filter(rating=int(rating))
+
+        if day != "All":
+            search_result = search_result.filter(day__name=day)
+
+        context.update({"result": search_result})
+
+    return render(request, 'Home/search.html', context)

@@ -88,7 +88,7 @@ def search_view(request):
     context = {
         "platform": AnimePlatform.objects.all(),
         "genre": Genre.objects.all(),
-        "season": Season.objects.all(),        
+        "season": Season.objects.all(),
     }
     if request.method == "GET":
         query = request.GET.get("q")
@@ -98,7 +98,7 @@ def search_view(request):
         rating = request.GET.get("rating")
         day = request.GET.get("day")
 
-        if query==None:
+        if query==None:            
             search_result = Anime.objects.all().order_by("rating")
             context.update({"result": search_result})
         else:
@@ -106,19 +106,19 @@ def search_view(request):
                 Q(anime_name__icontains=query) | Q(description__icontains=query), 
             )
 
-        if platform != "All":
+        if platform != "All" and platform != None:
             search_result = search_result.filter(platform__name=platform)
 
-        if genre != "All":
+        if genre != "All" and genre != None:
             search_result = search_result.filter(genre__name=genre)
 
-        if season != "All":
+        if season != "All" and season != None:
             search_result = search_result.filter(season__name=season)
 
-        if rating != "All":
+        if rating != "All" and rating != None:
             search_result = search_result.filter(rating=int(rating))
 
-        if day != "All":
+        if day != "All" and day != None:
             search_result = search_result.filter(day__name=day)
 
         context.update({"result": search_result})

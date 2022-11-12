@@ -1,4 +1,6 @@
 <!DOCTYPE html>
+
+{%block body%}
 <html lang="en">
     
     <head>
@@ -20,20 +22,7 @@
                         width: 500px; }
     </style>
 
-    <body>
-        {% if request.user.username %}
-            <a class = "pos gillfont" href="{% url 'logout' %}"> Log out </a>
-        {% else %}
-            <a class = "pos gillfont" style="right: 30vh;" href="{% url 'login' %}"> Log in </a>
-            <a class = "pos gillfont" href="{% url 'register' %}"> register </a>
-        {% endif %}
-        <div>
-            <center>
-            {% block body %}
-            {% endblock %}
-            </center>
-        <div>
-    </body>
-    
+
     
 </html>
+{%endblock%}

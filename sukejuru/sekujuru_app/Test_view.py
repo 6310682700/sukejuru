@@ -4,8 +4,9 @@ from django.urls import reverse
 from django.db.models import Max
 from django.contrib.auth.models import User
 from django.test import TestCase, client
-from .models import AnimePlatform, Genre, Season, Day, Anime, WebUser, Favorite
+from .models import AnimePlatform, Genre, Season, Day, Anime
 from django.urls import reverse 
+from user.models import WebUser, Favorite
 
 class testView(TestCase):
 
@@ -23,7 +24,7 @@ class testView(TestCase):
         Anime.objects.first().platform.add(AnimePlatform.objects.get(id=1))
         Anime.objects.first().platform.add(AnimePlatform.objects.get(id=2))
         WebUser.objects.create(d_user = User.objects.first())
-        WebUser.objects.first().fav_anime.set(Anime.objects.all())
+        WebUser.objects.first().fav_anime.set(Anime.objects.all())  
     
 
     def test_login(self):
@@ -42,3 +43,9 @@ class testView(TestCase):
         self.client = Client()
         response = self.client.post(reverse('home'), {"username": "non","password" :"ang"})
         self.assertEqual(response.status_code, 200)
+
+    def test_user_about(self):
+        self.client = Client()
+        response = self.client.post(reverse('about'), {"username": "non","password" :"ang"})
+        self.assertEqual(response.status_code, 200)
+

@@ -1,7 +1,9 @@
 from django.test import TestCase, client
-from .models import AnimePlatform, Genre, Season, Day, Anime, WebUser, Favorite
+from .models import AnimePlatform, Genre, Season, Day, Anime
 from django.urls import reverse 
 from django.contrib.auth.models import User
+from user.models import WebUser, Favorite
+
 class testModel(TestCase):
 
     def setUp(self):
@@ -20,7 +22,7 @@ class testModel(TestCase):
         Anime.objects.first().platform.add(AnimePlatform.objects.get(id=1))
         Anime.objects.first().platform.add(AnimePlatform.objects.get(id=2))
         WebUser.objects.create(d_user = User.objects.first())
-        WebUser.objects.first().fav_anime.set(Anime.objects.all())
+        WebUser.objects.first().fav_anime.set(Anime.objects.all()) 
     
     def test_anime_platform(self):
         animes = Anime.objects.first()

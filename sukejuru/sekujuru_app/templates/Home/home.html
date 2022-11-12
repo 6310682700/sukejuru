@@ -1,58 +1,88 @@
-{% extends 'layout.html' %}
-{% block body %}
-
-{% load static %}
-<link rel="stylesheet" href="{% static 'index/home.css' %}" type = "text/css">
-
-<div class = "body">
-    <div class = "curve">
-        <h1>Welcome</h1>
-    </div>
-
-{% comment %} 
-    <table>
-        {% for Anime in Anime_list%}
-        <ul style = "width : 450px">
-            <div class = "gillfont borderbottom">
-                <a> {{Anime.anime_name}} </a>
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Shop Homepage - Start Bootstrap Template</title>
+        <!-- Favicon-->
+        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+        <!-- Bootstrap icons-->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="css/styles.css" rel="stylesheet" />
+    </head>
+    <body>
+        <!-- Navigation-->
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container px-4 px-lg-5">
+                    <form class="d-flex">
+                    </form>
+                </div>
             </div>
-        </ul>
-        {% endfor %}
-    </table> {% endcomment %}
-
-    <div class="container">
-        <div class="table">
-            <div class="table-header">
-                <div class="header__item"><a id="name" class="filter__link" href="#">Name</a></div>
-                <div class="header__item"><a id="wins" class="filter__link filter__link--number" href="#">Platform</a></div>
-                <div class="header__item"><a id="draws" class="filter__link filter__link--number" href="#">Date</a></div>
-                <div class="header__item"><a id="losses" class="filter__link filter__link--number" href="#">Time</a></div>
+        </nav>
+        <!-- Header-->
+        <header class="bg-dark py-5">
+            <div class="container px-4 px-lg-5 my-5">
+                <div class="text-center text-white">
+                    <h1 class="display-4 fw-bolder">Welcome</h1>
+                </div>
             </div>
-            <div class="table-content">	
-                <div class="table-row">		
-                    <div class="table-data">Blue Lock</div>
-                    <div class="table-data"><a href = "https://www.bilibili.tv/en/play/1066507/12590577?utm_source=hareshi&utm_medium=130298-6162761f7c72e93a00c48069&utm_campaign=632de05e4c4ccf36e9a66f6a">bilibili</a></div>
-                    <div class="table-data">Saturday</div>
-                    <div class="table-data">23.30-24.00</div>
-                </div>
-                <div class="table-row">
-                    <div class="table-data">The Eminence in shadow</div>
-                    <div class="table-data"><a href = "https://www.bilibili.tv/th/play/2069747/12599570?utm_source=hareshi&utm_medium=137822-6162761f7c72e93a00c48069&utm_campaign=6336d65f31a3338e010231b2">bilibili</a></div>
-                    <div class="table-data">Wednesday</div>
-                    <div class="table-data">21:30-22.00</div>
-                </div>
-                <div class="table-row">
-                    <div class="table-data">The Beast Tamer</div>
-                    <div class="table-data"><a href = "https://www.youtube.com/watch?v=3puYB7B2Zu8&list=PLIa05JMgYhhZUyaknLR_L_hb9lgYoi_ON">youtube</a></div>
-                    <div class="table-data">Saturday</div>
-                    <div class="table-data">21:00-21.30</div>
-                </div>
-            </div>	
-        </div>
-    </div>
-    <!-- <a href="{% url 'logout' %}">Log out</a> -->
+        </header>
+        <!-- Section-->
 
-    {% endblock %}
+        <section class="py-5">
+            <div class="container px-4 px-lg-5 mt-5">
+                <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+                    <div class="col mb-5">
+                        <div class="card h-100">
+                            <!-- Product image-->
+                            <a href="https://www.bilibili.tv/th/play/2069747/12599570?utm_source=hareshi&utm_medium=137822-6162761f7c72e93a00c48069&utm_campaign=6336d65f31a3338e010231b2">
+                                <img class="card-img-top" src="https://www.metalbridges.com/wp-content/uploads/2021/08/Blue-Lock-anime-2022-1.jpg" alt="..." />
+                            </a>
+                            <!-- Anime details-->
+                            <div class="card-body p-4">
+                                <div class="text-center">
+                                    Anime description:<br></br>
+                                    ทีมฟุตบอลญี่ปุ่นได้วางแผนว่าให้กองหน้า 300 คนมาฝึกพิเศษกัน ซึ่งพวกเขาต้องอยู่ร่วมกันในหอพักบลูล็อค
+                            </div>
+                            <!-- Rate -->
+                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                                <!-- rate functiion it h=think -->
+                        </div>
+                    </div>
+                </div>
 
+                <div class="container px-4 px-lg-5 mt-5">
+                    <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+                        <div class="col mb-5">
+                            <div class="card h-100">
+                                <!-- Product image-->
+                                <a href="https://www.youtube.com/watch?v=3puYB7B2Zu8&list=PLIa05JMgYhhZUyaknLR_L_hb9lgYoi_ON">
+                                    <img class="card-img-top" src="https://pic.bstarstatic.com/ogv/a7a0b6b34a4d0231cae65c2898b914ac1613a413.jpg@600w_800h_1e_1c_1f.webp" alt="..." />
+                                </a>
+                                <!-- Anime details-->
+                                <div class="card-body p-4">
+                                    <div class="text-center">
+                                        Anime description:<br></br>
+                                        รน นักฝึกสัตว์ที่ถูกขับไล่จากปาร์ตี้ผู้กล้าเพราะถูกตราหน้าว่าเป็นพวกไร้ประโยชน์ สิ่งที่เขาได้พบหลังแล่นไปเป็นนักผจญภัยก็คือคานาเดะ สาวน้อย "เผ่าภูตแมว" เผ่าพันธุ์สุดแกร่ง การพบกันของทั้งคู่เป็นจุดเริ่มต้นที่ทำให้โลกได้ประจักษ์ถึงความสามารถของเรน
+                                </div>
+                                <!-- Rate -->
+                                <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                                    <!-- rate functiion it h=think -->
+                            </div>
+                        </div>
+                    </div>
+        </section>
 
-</div>
+        <!-- Footer-->
+        <footer class="py-5 bg-dark">
+            <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Anime Schedule</p></div>
+        </footer>
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Core theme JS-->
+        <script src="js/scripts.js"></script>
+    </body>
+</html>

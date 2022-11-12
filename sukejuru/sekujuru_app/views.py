@@ -10,7 +10,7 @@ import re
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect
 from django.urls import reverse
-from .models import AnimePlatform, Genre, Season, Day, Anime, WebUser, Favorite
+from .models import AnimePlatform, Genre, Season, Day, Anime
 from .form import NewUserForm
 
 

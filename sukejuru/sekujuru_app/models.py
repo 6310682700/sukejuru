@@ -9,8 +9,8 @@ class AnimePlatform(models.Model):
         return f'{self.name}'
 
 class Episode(models.Model):
-    episode = models.IntegerField()
-    platform = model.models.ForeignKey(AnimePlatform, on_delete=models.CASCADE)
+    episode = models.IntegerField(default=None)
+    platform = models.ForeignKey(AnimePlatform, on_delete=models.CASCADE)
     link = models.CharField(max_length=999)
 
 class Genre(models.Model):
@@ -35,7 +35,7 @@ class Day(models.Model):
 class Anime(models.Model):
     anime_id = models.IntegerField(primary_key=True)
     anime_name = models.CharField(max_length=99)
-    anime_image = models.CharField(max_length=999)
+    anime_image = models.CharField(max_length=999, default="-")
     description = models.CharField(max_length=999, default="-")
     platform = models.ManyToManyField(AnimePlatform, default=None)
     day = models.ManyToManyField(Day)

@@ -83,6 +83,8 @@ def calender(request):
             "Anime_today": anime_today
         }
 
-   
-
-    return render(request, 'Home/calender.html', context)
+        return render(request, 'Home/calender.html', context)
+        
+def about_view(request):
+    return render(request, 'Home/about.html', {
+    })

@@ -1,4 +1,4 @@
-{% block content %}
+{% block body %}
 
 {% load static %}
 <link rel="stylesheet" href="{% static 'index/login.css' %}" type = "text/css">
@@ -20,6 +20,8 @@
       </div>
       
       <button class="btn" type="submit" value="Login">Login</button>
+      <div>Not have an account?
+      <a href="register">Register</a></div>
   </form>
   </div>
   {% endblock %}

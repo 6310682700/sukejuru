@@ -1,28 +1,30 @@
-<!DOCTYPE html>
+{% load static %}
+<link rel="stylesheet" href="{% static 'index/home.css' %}" type = "text/css">
 
-{%block body%}
-<html lang="en">
-    
-    <head>
-        <title></title>
-    </head>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+   <div class="container px-4 px-lg-5">
+       <a class="navbar-brand" href="home">Homepage</a>
+       <a class="navbar-brand" href="about" >About</a>
+       {% if request.user.is_authenticated %}
+       <a class="navbar-brand" href="{% url 'logout' %}">Logout</a>
+       {% else %}
+       <a class="navbar-brand" href="{% url 'login' %}">Login</a>
+       {% endif %}
+       <a class="navbar-brand" href="calender" >Calendar</a>
+       <a class="navbar-brand" href="" >Search(coming soon)</a>
+       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+       </div>
+   </div>
+</nav>
 
-    <style>
-        .gillfont {     font-size : 25px;
-                        font-family: 'Trebuchet MS', sans-serif; }
-        .pos {          position: absolute;	
-                        top: 8px;
-                        right: 16px;
-                        font-size: 18px; }
-        .logoutpos {    position : absolute;
-                        text-align: right;
-                        vertical-align:top;
-                        top: 2vh;
-                        right : 3vh; 
-                        width: 500px; }
-    </style>
+<header class="bg-dark py-5">
+   <div class="container px-4 px-lg-5 my-5">
+       <div class="text-center text-white">
+           <h1 class="display-4 fw-bolder">Sukejuru</h1>
+           <p class="lead fw-normal text-white-50 mb-0">Easy to watch in one website</p>
+       </div>
+   </div>
+</header>
 
-
-    
-</html>
-{%endblock%}
+{% comment %} 
+Trying to put all of these in layout without overwrite prob{% endcomment %}

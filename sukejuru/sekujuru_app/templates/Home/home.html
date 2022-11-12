@@ -1,3 +1,6 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'index/home.css' %}" type = "text/css">
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -5,7 +8,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>Shop Homepage - Start Bootstrap Template</title>
+        <title>Anime Schedule - Homepage</title>
         <!-- Favicon-->
         <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
         <!-- Bootstrap icons-->
@@ -17,7 +20,26 @@
         <!-- Navigation-->
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container px-4 px-lg-5">
+                <a class="navbar-brand" href="#!">Homepage</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+                {% comment %} <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="#!">Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#!">About</a></li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Shop</a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="#!">All Products</a></li>
+                                <li><hr class="dropdown-divider" /></li>
+                                <li><a class="dropdown-item" href="#!">Popular Items</a></li>
+                                <li><a class="dropdown-item" href="#!">New Arrivals</a></li>
+                            </ul>
+                        </li>
+                    </ul> {% endcomment %}
                     <form class="d-flex">
+                        <button class="btn btn-outline-dark" type="submit">
+                            <a href="login">Login</a>
+                        </button>
                     </form>
                 </div>
             </div>
@@ -26,59 +48,252 @@
         <header class="bg-dark py-5">
             <div class="container px-4 px-lg-5 my-5">
                 <div class="text-center text-white">
-                    <h1 class="display-4 fw-bolder">Welcome</h1>
+                    <h1 class="display-4 fw-bolder">Anime Schedule</h1>
+                    <p class="lead fw-normal text-white-50 mb-0">easy to watch schedule</p>
                 </div>
             </div>
         </header>
         <!-- Section-->
-
         <section class="py-5">
             <div class="container px-4 px-lg-5 mt-5">
                 <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
                     <div class="col mb-5">
                         <div class="card h-100">
-                            <!-- Product image-->
-                            <a href="https://www.bilibili.tv/th/play/2069747/12599570?utm_source=hareshi&utm_medium=137822-6162761f7c72e93a00c48069&utm_campaign=6336d65f31a3338e010231b2">
-                                <img class="card-img-top" src="https://www.metalbridges.com/wp-content/uploads/2021/08/Blue-Lock-anime-2022-1.jpg" alt="..." />
-                            </a>
+                            <!-- Sale badge-->
+                            <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Recommended</div>
+                            <!-- Anime image-->
+                            <img class="card-img-top" src="https://www.metalbridges.com/wp-content/uploads/2021/08/Blue-Lock-anime-2022-1.jpg" alt="..." />
                             <!-- Anime details-->
                             <div class="card-body p-4">
                                 <div class="text-center">
-                                    Anime description:<br></br>
+                                    <!-- Anime name-->
+                                    <h5 class="fw-bolder">Blue lock</h5>
+                                    <div class="d-flex justify-content-center small text-warning mb-2">
+                                        <div class="bi-star-fill"></div>
+                                        <div class="bi-star-fill"></div>
+                                        <div class="bi-star-fill"></div>
+                                        <div class="bi-star-fill"></div>
+                                        <div class="bi-star-fill"></div>
+                                    </div>
+                                    <!-- Anime description-->
                                     ทีมฟุตบอลญี่ปุ่นได้วางแผนว่าให้กองหน้า 300 คนมาฝึกพิเศษกัน ซึ่งพวกเขาต้องอยู่ร่วมกันในหอพักบลูล็อค
+                                </div>
                             </div>
-                            <!-- Rate -->
+                            <!-- Actions -->
                             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <!-- rate functiion it h=think -->
+                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="https://www.bilibili.tv/th/play/2069747/12599570?utm_source=hareshi&utm_medium=137822-6162761f7c72e93a00c48069&utm_campaign=6336d65f31a3338e010231b2">Start watching</a></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col mb-5">
+                        <div class="card h-100">
+                            <!-- Sale badge-->
+                            <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Recommended</div>
+                            <!-- Product image-->
+                            <img class="card-img-top" src="https://static.wikia.nocookie.net/to-be-a-power-in-the-shadows/images/c/c8/The_Eminence_in_Shadow_Anime_Visual.png/revision/latest/scale-to-width-down/1000?cb=20221005153210" alt="..." />
+                            <!-- Product details-->
+                            <div class="card-body p-4">
+                                <div class="text-center">
+                                    <!-- Product name-->
+                                    <h5 class="fw-bolder">The eminence in shadow</h5>
+                                    <!-- Product reviews-->
+                                    <div class="d-flex justify-content-center small text-warning mb-2">
+                                        <div class="bi-star-fill"></div>
+                                        <div class="bi-star-fill"></div>
+                                        <div class="bi-star-fill"></div>
+                                        <div class="bi-star-fill"></div>
+                                        <div class="bi-star-fill"></div>
+                                    </div>
+                                    <!-- Product price-->
+                                    "เรื่องโกหกเรื่องใหญ่เรื่องหนึ่ง และความจริงที่บิดเบี้ยวเล็กน้อย"
+                                </div>
+                            </div>
+                            <!-- Product actions-->
+                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="https://www.bilibili.tv/en/media/1066507">Start watching</a></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col mb-5">
+                        <div class="card h-100">
+                            <!-- Anime badge-->
+                            <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Recommended</div>
+                            <!-- Anime image-->
+                            <img class="card-img-top" src="https://www.crunchyroll.com/imgsrv/display/thumbnail/1200x675/catalog/crunchyroll/8326c04669e36e061d545a08a8b4f1ad.jpeg" alt="..." />
+                            <!-- Anime details-->
+                            <div class="card-body p-4">
+                                <div class="text-center">
+                                    <!-- Anime name-->
+                                    <h5 class="fw-bolder">The Beast Tamer Who Got Kicked Out From His Party Meets a Cat Girl From the Superior Race</h5>
+                                    <!-- Anime reviews-->
+                                    <div class="d-flex justify-content-center small text-warning mb-2">
+                                        <div class="bi-star-fill"></div>
+                                        <div class="bi-star-fill"></div>
+                                        <div class="bi-star-fill"></div>
+                                        <div class="bi-star-fill"></div>
+                                        <div class="bi-star-fill"></div>
+                                    </div>
+                                    <!-- Anime description-->
+                                    บีสท์เทอมเมอร์ที่ถูกทิ้งเจอกับเผ่าพันธุ์สุดน่ารักและแข็งแกร่ง
+                                </div>
+                            </div>
+                            <!-- Anime actions-->
+                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="https://www.youtube.com/playlist?list=PLIa05JMgYhhZUyaknLR_L_hb9lgYoi_ON">Start watching</a></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col mb-5">
+                        <div class="card h-100">
+                            <!-- Anime badge-->
+                            <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Recommended</div>
+                            <!-- Anime image-->
+                            <img class="card-img-top" src="https://i.kinja-img.com/gawker-media/image/upload/c_fill,f_auto,fl_progressive,g_center,h_675,pg_1,q_80,w_1200/7f7d8cb1ce58ce24b7d2b0efcdd927d7.jpg" alt="..." />
+                            <!-- Anime details-->
+                            <div class="card-body p-4">
+                                <div class="text-center">
+                                    <!-- Anime name-->
+                                    <h5 class="fw-bolder">Mobile Suit Gundam: The Witch from Mercury</h5>
+                                    <!-- Anime reviews-->
+                                    <div class="d-flex justify-content-center small text-warning mb-2">
+                                        <div class="bi-star-fill"></div>
+                                        <div class="bi-star-fill"></div>
+                                        <div class="bi-star-fill"></div>
+                                        <div class="bi-star-fill"></div>
+                                        <div class="bi-star-fill"></div>
+                                    </div>
+                                    <!-- Anime description-->
+                                    ปีเอ.เอส. 122 ยุคที่บริษัทมากมายเข้าสู่อวกาศ เด็กสาวคนเดียวจากดาวพุธอันห่างไกลได้ย้ายมาโรงเรียนเทคโนโลยีแอสติคาสเชีย เธอชื่อซูเล็ตต้า เมอร์คิวรี่ ด้วยแสงสีแดงที่เผาไหม้ในหัวใจอันบริสุทธิ์ เธอคนนี้จะก้าวสู่โลกใหม่ไปทีละก้าว
+                                </div>
+                            </div>
+                            <!-- Anime actions-->
+                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="https://www.youtube.com/playlist?list=PLJV1h9xQ7Hx_jXtO1GrrS0to_ojc672HG">Start watching</a></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col mb-5">
+                        <div class="card h-100">
+                            <!-- Anime badge-->
+                            <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Recommended</div>
+                            <!-- Anime image-->
+                            <img class="card-img-top" src="https://static1.cbrimages.com/wordpress/wp-content/uploads/2022/07/Lycoris-Recoil.jpg" alt="..." />
+                            <!-- Anime details-->
+                            <div class="card-body p-4">
+                                <div class="text-center">
+                                    <!-- Anime name-->
+                                    <h5 class="fw-bolder">Lycoris Recoil</h5>
+                                    <!-- Anime reviews-->
+                                    <div class="d-flex justify-content-center small text-warning mb-2">
+                                        <div class="bi-star-fill"></div>
+                                        <div class="bi-star-fill"></div>
+                                        <div class="bi-star-fill"></div>
+                                        <div class="bi-star-fill"></div>
+                                        <div class="bi-star-fill"></div>
+                                    </div>
+                                    <!-- Anime description-->
+                                    คาเฟ่รับสั่งทุกอย่างตั้งแต่กาแฟอร่อยไปจนถึงขนมหวาน … และบางทีอาจจะมีอะไรพิเศษเช่นการรับมือกับเด็ก ๆ การเจรจาธุรกิจ คำแนะนำเกี่ยวกับความรัก ปะทะแบบตัวต่อตัวเกี่ยวกับซอมบี้และสัตว์ประหลาดยักษ์ และอีกมากมาย “สั่งอะไรก็จัดให้…!”
+                                </div>
+                            </div>
+                            <!-- Anime actions-->
+                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="https://www.netflix.com/th-en/title/81620000">Start watching</a></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col mb-5">
+                        <div class="card h-100">
+                            <!-- Sale badge-->
+                            <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Recommended</div>
+                            <!-- Anime image-->
+                            <img class="card-img-top" src="https://www.crunchyroll.com/imgsrv/display/thumbnail/1200x675/catalog/crunchyroll/ea075b926e1073f4eb016bff8cdb434c.jpeg" alt="..." />
+                            <!-- Anime details-->
+                            <div class="card-body p-4">
+                                <div class="text-center">
+                                    <!-- Anime name-->
+                                    <h5 class="fw-bolder">Chainsaw Man</h5>
+                                    <!-- Anime reviews-->
+                                    <div class="d-flex justify-content-center small text-warning mb-2">
+                                        <div class="bi-star-fill"></div>
+                                        <div class="bi-star-fill"></div>
+                                        <div class="bi-star-fill"></div>
+                                        <div class="bi-star-fill"></div>
+                                        <div class="bi-star-fill"></div>
+                                    </div>
+                                    <!-- Anime description-->
+                                    เด็นจิ เด็กหนุ่มที่ใช้ชีวิตเป็นนักล่าปิศาจร่วมกับ โปจิตะที่เป็นปิศาจเลื่อยยนต์ ในทุกๆวันต้องใช้ชีวิตอย่งตกต่ำสุดขีด โดนใช้งานเยี่ยงทาสเพื่อชดใช้หนี้สิน แต่ก็ยังโดนหักหลังฆ่า ทว่าโปจิตะยอมแลกชีวิตมอบหัวใจให้กับเด็นจิ ทำให้เขาฟื้นคืนมาเป็น “ปิศาจเลื่อยยนต์”!
+                                </div>
+                            </div>
+                            <!-- Anime actions-->
+                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="https://www.primevideo.com/detail/Chainsaw-Man/0U7WWB2247GVA8C1747R209GKC">Start watching</a></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col mb-5">
+                        <div class="card h-100">
+                            <!-- Sale badge-->
+                            <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Coming soon</div>
+                            <!-- Anime image-->
+                            <img class="card-img-top" src="https://mastermind.fims.uwo.ca/wp-content/uploads/2019/04/coming-soon-1.jpg" alt="..." />
+                            <!-- Anime details-->
+                            <div class="card-body p-4">
+                                <div class="text-center">
+                                    <!-- Anime name-->
+                                    <h5 class="fw-bolder">Coming soon</h5>
+                                    <!-- Anime reviews-->
+                                    <div class="d-flex justify-content-center small text-warning mb-2">
+                                        <div class="bi-star-nofill"></div>
+                                        <div class="bi-star-nofill"></div>
+                                        <div class="bi-star-nofill"></div>
+                                        <div class="bi-star-nofill"></div>
+                                        <div class="bi-star-nofill"></div>
+                                    </div>
+                                    <!-- Anime description-->
+                                    -------------
+                                </div>
+                            </div>
+                            <!-- Anime actions-->
+                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="">Start watching</a></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col mb-5">
+                        <div class="card h-100">
+                            <!-- Sale badge-->
+                            <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Coming soon</div>
+                            <!-- Anime image-->
+                            <img class="card-img-top" src="https://mastermind.fims.uwo.ca/wp-content/uploads/2019/04/coming-soon-1.jpg" alt="..." />
+                            <!-- Anime details-->
+                            <div class="card-body p-4">
+                                <div class="text-center">
+                                    <!-- Anime name-->
+                                    <h5 class="fw-bolder">Coming soon</h5>
+                                    <!-- Anime reviews-->
+                                    <div class="d-flex justify-content-center small text-warning mb-2">
+                                        <div class="bi-star-nofill"></div>
+                                        <div class="bi-star-nofill"></div>
+                                        <div class="bi-star-nofill"></div>
+                                        <div class="bi-star-nofill"></div>
+                                        <div class="bi-star-nofill"></div>
+                                    </div>
+                                    <!-- Anime description-->
+                                    -------------
+                                </div>
+                            </div>
+                            <!-- Anime actions-->
+                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="">Start watching</a></div>
+                            </div>
                         </div>
                     </div>
                 </div>
-
-                <div class="container px-4 px-lg-5 mt-5">
-                    <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-                        <div class="col mb-5">
-                            <div class="card h-100">
-                                <!-- Product image-->
-                                <a href="https://www.youtube.com/watch?v=3puYB7B2Zu8&list=PLIa05JMgYhhZUyaknLR_L_hb9lgYoi_ON">
-                                    <img class="card-img-top" src="https://pic.bstarstatic.com/ogv/a7a0b6b34a4d0231cae65c2898b914ac1613a413.jpg@600w_800h_1e_1c_1f.webp" alt="..." />
-                                </a>
-                                <!-- Anime details-->
-                                <div class="card-body p-4">
-                                    <div class="text-center">
-                                        Anime description:<br></br>
-                                        รน นักฝึกสัตว์ที่ถูกขับไล่จากปาร์ตี้ผู้กล้าเพราะถูกตราหน้าว่าเป็นพวกไร้ประโยชน์ สิ่งที่เขาได้พบหลังแล่นไปเป็นนักผจญภัยก็คือคานาเดะ สาวน้อย "เผ่าภูตแมว" เผ่าพันธุ์สุดแกร่ง การพบกันของทั้งคู่เป็นจุดเริ่มต้นที่ทำให้โลกได้ประจักษ์ถึงความสามารถของเรน
-                                </div>
-                                <!-- Rate -->
-                                <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                    <!-- rate functiion it h=think -->
-                            </div>
-                        </div>
-                    </div>
+            </div>
         </section>
-
         <!-- Footer-->
         <footer class="py-5 bg-dark">
-            <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Anime Schedule</p></div>
+            <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Your Website 2022</p></div>
         </footer>
         <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>

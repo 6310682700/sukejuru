@@ -11,7 +11,7 @@ from django.utils import timezone
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect
 from django.urls import reverse
-from .models import AnimePlatform, Genre, Season, Day, Anime, WebUser, Favorite
+from .models import AnimePlatform, Genre, Season, Day, Anime
 from .form import NewUserForm
 
 
@@ -83,6 +83,8 @@ def calender(request):
             "Anime_today": anime_today
         }
 
-   
-
-    return render(request, 'Home/calender.html', context)
+        return render(request, 'Home/calender.html', context)
+        
+def about_view(request):
+    return render(request, 'Home/about.html', {
+    })

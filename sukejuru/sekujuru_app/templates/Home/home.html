@@ -70,26 +70,36 @@
         <section class="py-5">
             <div class="container px-4 px-lg-5 mt-5">
                 <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+                    {% for anime in anime_list %}
                     <div class="col mb-5">
                         <div class="card h-100">
                             <!-- Sale badge-->
+                            {% if anime.rating == 5 %}
                             <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Recommended</div>
+                            {% endif %}
                             <!-- Anime image-->
-                            <img class="card-img-top" src="https://www.metalbridges.com/wp-content/uploads/2021/08/Blue-Lock-anime-2022-1.jpg" alt="..." />
+                            <img class="card-img-top" src={{anime.anime_image}} alt="..." />
                             <!-- Anime details-->
                             <div class="card-body p-4">
                                 <div class="text-center">
                                     <!-- Anime name-->
-                                    <h5 class="fw-bolder">Blue lock</h5>
-                                    <div class="d-flex justify-content-center small text-warning mb-2">
+                                    <h5 class="fw-bolder">{{anime.anime_name}}</h5>
+                                    <div class="d-flex justify-content-center small text-warning mb-2" id={{anime.anime_id}}>
+                                        <script>
+                                            var x="";
+                                            for (let i=1; i<={{anime.rating}}; i++) {
+                                                x += '<div class="bi-star-fill"></div>';
+                                            }
+                                            document.getElementById({{anime.anime_id}}).innerHTML = x;
+                                        </script>
+                                        <!-- <div class="bi-star-fill"></div>
                                         <div class="bi-star-fill"></div>
                                         <div class="bi-star-fill"></div>
                                         <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
+                                        <div class="bi-star-fill"></div> -->
                                     </div>
                                     <!-- Anime description-->
-                                    ทีมฟุตบอลญี่ปุ่นได้วางแผนว่าให้กองหน้า 300 คนมาฝึกพิเศษกัน ซึ่งพวกเขาต้องอยู่ร่วมกันในหอพักบลูล็อค
+                                    {{anime.description}}
                                 </div>
                             </div>
                             <!-- Actions -->
@@ -98,240 +108,9 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col mb-5">
-                        <div class="card h-100">
-                            <!-- Sale badge-->
-                            <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Recommended</div>
-                            <!-- Product image-->
-                            <img class="card-img-top" src="https://static.wikia.nocookie.net/to-be-a-power-in-the-shadows/images/c/c8/The_Eminence_in_Shadow_Anime_Visual.png/revision/latest/scale-to-width-down/1000?cb=20221005153210" alt="..." />
-                            <!-- Product details-->
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <!-- Product name-->
-                                    <h5 class="fw-bolder">The eminence in shadow</h5>
-                                    <!-- Product reviews-->
-                                    <div class="d-flex justify-content-center small text-warning mb-2">
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                    </div>
-                                    <!-- Product price-->
-                                    "เรื่องโกหกเรื่องใหญ่เรื่องหนึ่ง และความจริงที่บิดเบี้ยวเล็กน้อย"
-                                </div>
-                            </div>
-                            <!-- Product actions-->
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="https://www.bilibili.tv/en/media/1066507">Start watching</a></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col mb-5">
-                        <div class="card h-100">
-                            <!-- Anime badge-->
-                            <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Recommended</div>
-                            <!-- Anime image-->
-                            <img class="card-img-top" src="https://www.crunchyroll.com/imgsrv/display/thumbnail/1200x675/catalog/crunchyroll/8326c04669e36e061d545a08a8b4f1ad.jpeg" alt="..." />
-                            <!-- Anime details-->
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <!-- Anime name-->
-                                    <h5 class="fw-bolder">The Beast Tamer Who Got Kicked Out From His Party Meets a Cat Girl From the Superior Race</h5>
-                                    <!-- Anime reviews-->
-                                    <div class="d-flex justify-content-center small text-warning mb-2">
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                    </div>
-                                    <!-- Anime description-->
-                                    บีสท์เทอมเมอร์ที่ถูกทิ้งเจอกับเผ่าพันธุ์สุดน่ารักและแข็งแกร่ง
-                                </div>
-                            </div>
-                            <!-- Anime actions-->
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="https://www.youtube.com/playlist?list=PLIa05JMgYhhZUyaknLR_L_hb9lgYoi_ON">Start watching</a></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col mb-5">
-                        <div class="card h-100">
-                            <!-- Anime badge-->
-                            <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Recommended</div>
-                            <!-- Anime image-->
-                            <img class="card-img-top" src="https://i.kinja-img.com/gawker-media/image/upload/c_fill,f_auto,fl_progressive,g_center,h_675,pg_1,q_80,w_1200/7f7d8cb1ce58ce24b7d2b0efcdd927d7.jpg" alt="..." />
-                            <!-- Anime details-->
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <!-- Anime name-->
-                                    <h5 class="fw-bolder">Mobile Suit Gundam: The Witch from Mercury</h5>
-                                    <!-- Anime reviews-->
-                                    <div class="d-flex justify-content-center small text-warning mb-2">
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                    </div>
-                                    <!-- Anime description-->
-                                    ปีเอ.เอส. 122 ยุคที่บริษัทมากมายเข้าสู่อวกาศ เด็กสาวคนเดียวจากดาวพุธอันห่างไกลได้ย้ายมาโรงเรียนเทคโนโลยีแอสติคาสเชีย เธอชื่อซูเล็ตต้า เมอร์คิวรี่ ด้วยแสงสีแดงที่เผาไหม้ในหัวใจอันบริสุทธิ์ เธอคนนี้จะก้าวสู่โลกใหม่ไปทีละก้าว
-                                </div>
-                            </div>
-                            <!-- Anime actions-->
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="https://www.youtube.com/playlist?list=PLJV1h9xQ7Hx_jXtO1GrrS0to_ojc672HG">Start watching</a></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col mb-5">
-                        <div class="card h-100">
-                            <!-- Anime badge-->
-                            <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Recommended</div>
-                            <!-- Anime image-->
-                            <img class="card-img-top" src="https://static1.cbrimages.com/wordpress/wp-content/uploads/2022/07/Lycoris-Recoil.jpg" alt="..." />
-                            <!-- Anime details-->
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <!-- Anime name-->
-                                    <h5 class="fw-bolder">Lycoris Recoil</h5>
-                                    <!-- Anime reviews-->
-                                    <div class="d-flex justify-content-center small text-warning mb-2">
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                    </div>
-                                    <!-- Anime description-->
-                                    คาเฟ่รับสั่งทุกอย่างตั้งแต่กาแฟอร่อยไปจนถึงขนมหวาน … และบางทีอาจจะมีอะไรพิเศษเช่นการรับมือกับเด็ก ๆ การเจรจาธุรกิจ คำแนะนำเกี่ยวกับความรัก ปะทะแบบตัวต่อตัวเกี่ยวกับซอมบี้และสัตว์ประหลาดยักษ์ และอีกมากมาย “สั่งอะไรก็จัดให้…!”
-                                </div>
-                            </div>
-                            <!-- Anime actions-->
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="https://www.netflix.com/th-en/title/81620000">Start watching</a></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col mb-5">
-                        <div class="card h-100">
-                            <!-- Sale badge-->
-                            <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Recommended</div>
-                            <!-- Anime image-->
-                            <img class="card-img-top" src="https://www.crunchyroll.com/imgsrv/display/thumbnail/1200x675/catalog/crunchyroll/ea075b926e1073f4eb016bff8cdb434c.jpeg" alt="..." />
-                            <!-- Anime details-->
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <!-- Anime name-->
-                                    <h5 class="fw-bolder">Chainsaw Man</h5>
-                                    <!-- Anime reviews-->
-                                    <div class="d-flex justify-content-center small text-warning mb-2">
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                    </div>
-                                    <!-- Anime description-->
-                                    เด็นจิ เด็กหนุ่มที่ใช้ชีวิตเป็นนักล่าปิศาจร่วมกับ โปจิตะที่เป็นปิศาจเลื่อยยนต์ ในทุกๆวันต้องใช้ชีวิตอย่งตกต่ำสุดขีด โดนใช้งานเยี่ยงทาสเพื่อชดใช้หนี้สิน แต่ก็ยังโดนหักหลังฆ่า ทว่าโปจิตะยอมแลกชีวิตมอบหัวใจให้กับเด็นจิ ทำให้เขาฟื้นคืนมาเป็น “ปิศาจเลื่อยยนต์”!
-                                </div>
-                            </div>
-                            <!-- Anime actions-->
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="https://www.primevideo.com/detail/Chainsaw-Man/0U7WWB2247GVA8C1747R209GKC">Start watching</a></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col mb-5">
-                        <div class="card h-100">
-                            <!-- Sale badge-->
-                            <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Coming soon</div>
-                            <!-- Anime image-->
-                            <img class="card-img-top" src="https://mastermind.fims.uwo.ca/wp-content/uploads/2019/04/coming-soon-1.jpg" alt="..." />
-                            <!-- Anime details-->
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <!-- Anime name-->
-                                    <h5 class="fw-bolder">Coming soon</h5>
-                                    <!-- Anime reviews-->
-                                    <div class="d-flex justify-content-center small text-warning mb-2">
-                                        <div class="bi-star-nofill"></div>
-                                        <div class="bi-star-nofill"></div>
-                                        <div class="bi-star-nofill"></div>
-                                        <div class="bi-star-nofill"></div>
-                                        <div class="bi-star-nofill"></div>
-                                    </div>
-                                    <!-- Anime description-->
-                                    -------------
-                                </div>
-                            </div>
-                            <!-- Anime actions-->
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="">Start watching</a></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col mb-5">
-                        <div class="card h-100">
-                            <!-- Sale badge-->
-                            <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Coming soon</div>
-                            <!-- Anime image-->
-                            <img class="card-img-top" src="https://mastermind.fims.uwo.ca/wp-content/uploads/2019/04/coming-soon-1.jpg" alt="..." />
-                            <!-- Anime details-->
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <!-- Anime name-->
-                                    <h5 class="fw-bolder">Coming soon</h5>
-                                    <!-- Anime reviews-->
-                                    <div class="d-flex justify-content-center small text-warning mb-2">
-                                        <div class="bi-star-nofill"></div>
-                                        <div class="bi-star-nofill"></div>
-                                        <div class="bi-star-nofill"></div>
-                                        <div class="bi-star-nofill"></div>
-                                        <div class="bi-star-nofill"></div>
-                                    </div>
-                                    <!-- Anime description-->
-                                    -------------
-                                </div>
-                            </div>
-                            <!-- Anime actions-->
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="">Start watching</a></div>
-                            </div>
-                        </div>
-                    </div>
+                    {% endfor %}
 
-                    <div class="col mb-5">
-                        <div class="card h-100">
-                            <!-- Sale badge-->
-                            <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Coming soon</div>
-                            <!-- Anime image-->
-                            <img class="card-img-top" src="https://mastermind.fims.uwo.ca/wp-content/uploads/2019/04/coming-soon-1.jpg" alt="..." />
-                            <!-- Anime details-->
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <!-- Anime name-->
-                                    <h5 class="fw-bolder">Coming soon</h5>
-                                    <!-- Anime reviews-->
-                                    <div class="d-flex justify-content-center small text-warning mb-2">
-                                        <div class="bi-star-nofill"></div>
-                                        <div class="bi-star-nofill"></div>
-                                        <div class="bi-star-nofill"></div>
-                                        <div class="bi-star-nofill"></div>
-                                        <div class="bi-star-nofill"></div>
-                                    </div>
-                                    <!-- Anime description-->
-                                    -------------
-                                </div>
-                            </div>
-                            <!-- Anime actions-->
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="">Start watching</a></div>
-                            </div>
-                        </div>
-                    </div>
-
+                    <!-- Coming Soon Card -->
                     <div class="col mb-5">
                         <div class="card h-100">
                             <!-- Sale badge-->

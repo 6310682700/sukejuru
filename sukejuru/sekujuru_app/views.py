@@ -52,13 +52,13 @@ def logout_view(request):
     })
 
 def home_view(request):
-    anime_list = Anime.objects.all().order_by("rating")
+    anime_list = Anime.objects.all().order_by("-rating")
     
     return render(request, 'Home/home.html', {
-        'Anime_list': anime_list
+        'anime_list': anime_list
     })
 
-def calender(request):
+def calender_view(request):
     if request.method == "GET":
         request_day = request.GET.get("day")
 

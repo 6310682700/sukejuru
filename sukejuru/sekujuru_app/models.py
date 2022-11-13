@@ -35,7 +35,7 @@ class Day(models.Model):
 class Anime(models.Model):
     anime_id = models.IntegerField(primary_key=True)
     anime_name = models.CharField(max_length=99)
-    anime_image = models.CharField(max_length=999, default="-")
+    anime_image = models.CharField(max_length=999, default="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/Image_not_available.png/640px-Image_not_available.png")
     description = models.CharField(max_length=999, default="-")
     platform = models.ManyToManyField(AnimePlatform, default=None)
     day = models.ManyToManyField(Day)

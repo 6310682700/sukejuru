@@ -60,7 +60,7 @@
 <br>
 <br>
 
-<form action="" method="GET">
+<form action="" method="GET" style="position:relative; left:80px">
     <button name="day" type="submit" value="All">Show all</button>
     <button name="day" type="submit" value="Monday">Monday</button>
     <button name="day" type="submit" value="Tuseday">Tuseday</button>
@@ -70,11 +70,11 @@
     <button name="day" type="submit" value="Saturday">Saturday</button>
     <button name="day" type="submit" value="Sunday">Sunday</button>
 </form>
-
+<div style="position:relative; left:80px">
 {% for i in Anime %}
 {{ i.anime_name }} {{ i.time }}<br>
 {% endfor %}
-
+</div>
 <!-- <body class="game_info" data-spy="scroll" data-target=".header">
 
     <div class="col-md-6 col-sm-6 col-xs-12">

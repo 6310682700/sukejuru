@@ -18,7 +18,7 @@ class testView(TestCase):
         Day.objects.create(name = "Monday")
         Genre.objects.create(name ="Fantasy")
         Season.objects.create(name = "Winter")
-        Anime.objects.create(anime_name ="A", anime_id = "1", time= "09:00", rating = 5)
+        Anime.objects.create(anime_name ="Ant man", anime_id = "1", time= "09:00", rating = 5)
         Anime.objects.first().day.add(Day.objects.get(id=1))
         Anime.objects.first().genre.set(Genre.objects.all())
         Anime.objects.first().season.set(Season.objects.all())
@@ -67,3 +67,8 @@ class testView(TestCase):
         login = self.client.login(username='blablabla', password='heck') 
         self.assertFalse(login)
 
+    def test_search(self):
+        platform = AnimePlatform.objects.first()    
+        searched = self.client.get(reverse('search'), {'platform': platform.name}).context['result']
+        search = searched[0].anime_name
+        self.assertEqual(search, 'Ant man')

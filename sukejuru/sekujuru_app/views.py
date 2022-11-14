@@ -11,14 +11,8 @@ from django.db.models import Q
 
 
 # Create your views here.
-
 def index(request):
-    if request.user.is_superuser:
-        return HttpResponseRedirect(reverse('admin:index'))
-    # if not request.user.is_authenticated:
-    #     return HttpResponseRedirect(reverse('login'))
-    return render(request, 'Home/home.html', {
-    }) 
+    return HttpResponseRedirect(reverse('home'))
 
 def register_view(request):
     if request.method == "POST":
@@ -38,18 +32,20 @@ def login_view(request):
         user = authenticate(username=username, password=password)
         if user is not None:
             login(request, user)
-            return HttpResponseRedirect(reverse('index'))
+            if request.user.is_superuser:
+                return HttpResponseRedirect(reverse('admin:index'))
+            return HttpResponseRedirect(reverse('home'))
         else:
-            return render(request, 'User/login.html', {
-                'message': 'invalid username or password.'
-                })
-    return render(request, 'User/login.html')
+            return HttpResponseRedirect(reverse('home'))
+            # return render(request, 'Home/home.html', {
+            #     'message': 'invalid username or password.'
+            #     })
+    return HttpResponseRedirect(reverse('home'))
 
 def logout_view(request):
     logout(request)
-    return render(request, 'Home/home.html', {
-        'message': 'See you later'
-    })
+    return HttpResponseRedirect(reverse('home'))
+
 
 def home_view(request):
     anime_list = Anime.objects.all().order_by("-rating")

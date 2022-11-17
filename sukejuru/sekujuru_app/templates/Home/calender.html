@@ -1,3 +1,5 @@
+{% extends 'layout.html' %}
+
 <!-- <script>
     function makeTimer() {
        var endTime=new Date({{ Anime_today.time  }} * 1000);
@@ -30,30 +32,7 @@
 {% load static %}
 <link rel="stylesheet" href="{% static 'index/home.css' %}" type = "text/css">
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-   <div class="container px-4 px-lg-5">
-       <a class="navbar-brand" href="home">Homepage</a>
-       <a class="navbar-brand" href="about" >About</a>
-       {% if request.user.is_authenticated %}
-       <a class="navbar-brand" href="{% url 'logout' %}">Logout</a>
-       {% else %}
-       <a class="navbar-brand" href="{% url 'login' %}">Login</a>
-       {% endif %}
-       <a class="navbar-brand" href="calender" >Calendar</a>
-       <a class="navbar-brand" href="search" >Search(coming soon)</a>
-       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-       </div>
-   </div>
-</nav>
-
-<header class="bg-dark py-5">
-   <div class="container px-4 px-lg-5 my-5">
-       <div class="text-center text-white">
-           <h1 class="display-4 fw-bolder">Sukejuru</h1>
-           <p class="lead fw-normal text-white-50 mb-0">Easy to watch in one website</p>
-       </div>
-   </div>
-</header>
+{% block content %}
 
 {{Anime_today.anime_name}}
 {{ Anime_today.time }}
@@ -63,7 +42,7 @@
 <form action="" method="GET" style="position:relative; left:80px">
     <button name="day" type="submit" value="All">Show all</button>
     <button name="day" type="submit" value="Monday">Monday</button>
-    <button name="day" type="submit" value="Tuseday">Tuseday</button>
+    <button name="day" type="submit" value="Tuesday">Tuesday</button>
     <button name="day" type="submit" value="Wednesday">Wednesday</button>
     <button name="day" type="submit" value="Thursday">Thursday</button>
     <button name="day" type="submit" value="Friday">Friday</button>
@@ -75,6 +54,8 @@
 {{ i.anime_name }} {{ i.time }}<br>
 {% endfor %}
 </div>
+
+{% endblock %}
 <!-- <body class="game_info" data-spy="scroll" data-target=".header">
 
     <div class="col-md-6 col-sm-6 col-xs-12">

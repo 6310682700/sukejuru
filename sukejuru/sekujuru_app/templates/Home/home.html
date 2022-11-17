@@ -1,5 +1,6 @@
-{% load static %}
-<link rel="stylesheet" href="{% static 'index/home.css' %}" type = "text/css">
+{% extends 'layout.html' %}
+{% comment %} {% load static %}
+<link rel="stylesheet" href="{% static 'index/home.css' %}" type = "text/css"> {% endcomment %}
 
 <!DOCTYPE html>
 
@@ -19,55 +20,7 @@
     </head>
 
     <body>
-        <!-- Navigation-->
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <div class="container px-4 px-lg-5">
-                <a class="navbar-brand" href="home">Homepage</a>
-                <a class="navbar-brand" href="about" >About</a>
-                <a class="navbar-brand" href="calender" >Calendar</a>
-                <a class="navbar-brand" href="search" >Search(coming soon)</a>
-            </div>
-            {% if request.user.is_authenticated %}
-            <a class="navbar-brand" href="{% url 'logout' %}">Logout</a>
-            {% else %}
-            <div class="nav-item dropdown">
-                <a class="navbar-brand nav-link" href="{% url 'login' %}" role="button" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">Login</a>
-                <ul class="dropdown-menu" style="left: auto; right: 2px; margin-top:10px; padding: 20px; width:30vh">
-                    <div class="">
-                        <h1 class="login">LOGIN</h1>
-                        {% if message %}
-                            <div style="color: red">{{ message }}</div>
-                        {% endif %}
-                            <form action="{% url 'login' %}" method="post">
-                        {% csrf_token %}
-                            <form class="form_login">
-                                <div class="form_login_group">
-                                    <input type="text" name="username" placeholder="Username" class="form_input" />
-                                </div>
-                                
-                                <div class="form_login_group">
-                                    <input type="password" name="password" placeholder="Password" class="form_input" />
-                                </div>
-                                
-                                <button class="btn" style="background-color: black;  color: white; margin-top: 5px;" type="submit" value="Login">Login</button>
-                                    <div>Not have an account?
-                                    <a href="register">Register</a>
-                                </div>
-                            </form>
-                    </div>
-                </ul>
-            </div>
-            {% endif %}
-        </nav>
-        <!-- Header-->
-        <header class="bg-dark py-5">
-            <div class="container px-4 px-lg-5 my-5">
-                <div class="text-center text-white">
-                    <h1 class="display-4 fw-bolder">Sukejuru</h1>
-                    <p class="lead fw-normal text-white-50 mb-0">Easy to watch in one website</p>
-                </div>
-            </div>
-        </header>
+        {% block content %}
         <!-- Section-->
         <section class="py-5">
             <div class="container px-4 px-lg-5 mt-5">
@@ -146,12 +99,6 @@
                 </div>
             </div>
         </section>
-        <!-- Footer-->
-        <footer class="py-5 bg-dark">
-        </footer>
-        <!-- Bootstrap core JS-->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-        <!-- Core theme JS-->
-        <script src="js/scripts.js"></script>
+        {% endblock %}
     </body>
 </html>

@@ -1,56 +1,35 @@
-{% block body %}
+{% extends 'layout.html' %}
+
+{% block content %}
 
 {% load static %}
 <link rel="stylesheet" href="{% static 'index/home.css' %}" type = "text/css">
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container px-4 px-lg-5">
-        <a class="navbar-brand" href="home">Homepage</a>
-        <a class="navbar-brand" href="about" >About</a>
-        {% if request.user.is_authenticated %}
-        <a class="navbar-brand" href="{% url 'logout' %}">Logout</a>
-        {% else %}
-        <a class="navbar-brand" href="{% url 'login' %}">Login</a>
-        {% endif %}
-        <a class="navbar-brand" href="calender" >Calendar</a>
-        <a class="navbar-brand" href="search" >Search(coming soon)</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-        </div>
-    </div>
-</nav>
+<div style="margin-top: 20px">
+    <h1 style="position:relative; left:80px">ABOUT</h1>
+    <h2 style="position:relative; left:80px">Group Name: Sukejuru</h2>
+    <p style="position:relative; left:80px">
+        about this project <br></br>
+        - This project is made for subject CN331. This project we made a website that can link to all source of an anime and update anime premiere calendar.
+        This website is made for poeple who love to watch anime alot and want a website to store all path of anime because sometime some company amy not include 
+        some of anime that you want to watch so it can link to it immediately.<br></br>
+        This project is inspired by <a href="https://www.hareshi.net">hareshi.net</a>
+    </p>
+    <p style="position:relative; left:80px">Group Member
+        <ul style="position:relative; left:80px">1. Jirawat Muksuwan 6310611097<br/><br/>
+        2. Bulakorn Junboonmee 6310682577<br/><br/>
+        3. Khomchan Sasanatayat 6310682684<br/><br/>
+        4. Krittakorn Chairattanarom 6310682692<br/><br/>
+        5. Non Angsuvapattanakul 6310682700<br/><br/>
+        </ul>
+    </p>
 
-<header class="bg-dark py-5">
-    <div class="container px-4 px-lg-5 my-5">
-        <div class="text-center text-white">
-            <h1 class="display-4 fw-bolder">Sukejuru</h1>
-            <p class="lead fw-normal text-white-50 mb-0">Easy to watch in one website</p>
-        </div>
-    </div>
-</header>
-
-<h1 style="position:relative; left:80px">ABOUT</h1>
-<h2 style="position:relative; left:80px">Group Name: Sukejuru</h2>
-<p style="position:relative; left:80px">
-    about this project <br></br>
-    - This project is made for subject CN331. This project we made a website that can link to all source of an anime and update anime premiere calendar.
-    This website is made for poeple who love to watch anime alot and want a website to store all path of anime because sometime some company amy not include 
-    some of anime that you want to watch so it can link to it immediately.<br></br>
-    This project is inspired by <a href="https://www.hareshi.net">hareshi.net</a>
-</p>
-<p style="position:relative; left:80px">Group Member
-    <ul style="position:relative; left:80px">1. Jirawat Muksuwan 6310611097<br/><br/>
-    2. Bulakorn Junboonmee 6310682577<br/><br/>
-    3. Khomchan Sasanatayat 6310682684<br/><br/>
-    4. Krittakorn Chairattanarom 6310682692<br/><br/>
-    5. Non Angsuvapattanakul 6310682700<br/><br/>
-    </ul>
-</p>
-
-<p style="position:relative; left:80px">
-    <a href="https://www.pivotaltracker.com/n/projects/2609659">Pivotal Tracker</a>
-</p>
-<p style="position:relative; left:80px">
-    <a href="https://github.com/6310682700/sukejuru">Github Repository</a>
-</p>
+    <p style="position:relative; left:80px">
+        <a href="https://www.pivotaltracker.com/n/projects/2609659">Pivotal Tracker</a>
+    </p>
+    <p style="position:relative; left:80px">
+        <a href="https://github.com/6310682700/sukejuru">Github Repository</a>
+    </p>
+</div>
 
 {% endblock %}

@@ -42,7 +42,7 @@ class Anime(models.Model):
     time = models.TimeField()
     genre = models.ManyToManyField(Genre)
     season = models.ManyToManyField(Season)
-    rating = models.IntegerField()
+    rating = models.IntegerField(default=5)
 
     def __str__(self):
         return f'{self.anime_id}: {self.anime_name} {self.description} {self.platform} {self.day} {self.time} {self.genre} {self.season} {self.rating}'

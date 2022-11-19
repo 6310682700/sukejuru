@@ -15,17 +15,19 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from sekujuru_app import views
+from sekujuru_app import views as app_views
+from user import views as user_views
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("admin/logout", views.logout_view, name='admin_logout'),
-    path("", views.index, name="index"),
-    path('register', views.register_view, name='register'),
-    path('login', views.login_view, name='login'),
-    path('logout', views.logout_view, name='logout'),
-    path('home', views.home_view, name='home'),
-    path('calender', views.calender_view, name='calender'),
-    path('about', views.about_view, name='about'),
-    path('search', views.search_view, name='search'),
+    path("admin/logout", app_views.logout_view, name='admin_logout'),
+    path("", app_views.index, name="index"),
+    path('register', app_views.register_view, name='register'),
+    path('login', app_views.login_view, name='login'),
+    path('logout', app_views.logout_view, name='logout'),
+    path('home', app_views.home_view, name='home'),
+    path('calender', app_views.calender_view, name='calender'),
+    path('about', app_views.about_view, name='about'),
+    path('search', app_views.search_view, name='search'),
+    path('profile', user_views.profile_view, name='profile')
 ]

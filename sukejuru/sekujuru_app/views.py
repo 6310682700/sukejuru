@@ -7,7 +7,9 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 from .models import AnimePlatform, Genre, Season, Day, Anime
 from .form import NewUserForm
+from user.models import WebUser, Favorite
 from django.db.models import Q
+from django.contrib.auth.models import User
 
 
 # Create your views here.
@@ -49,10 +51,20 @@ def logout_view(request):
 
 def home_view(request):
     anime_list = Anime.objects.all().order_by("-rating")
-    
+    if request.user.is_authenticated:
+        user = User.objects.get(username=request.user)
+        fav_ani = WebUser.objects.get(d_user=user).fav_anime
+
     return render(request, 'Home/home.html', {
-        'anime_list': anime_list
+        'anime_list': anime_list,
+        'fav_list' : fav_ani
     })
+
+def do_favorite(request):
+    pass
+
+def remove_favorite(request):
+    pass
 
 def calender_view(request):
     if request.method == "GET":

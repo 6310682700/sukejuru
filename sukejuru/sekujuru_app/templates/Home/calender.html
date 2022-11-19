@@ -48,8 +48,8 @@
     <button name="day" type="submit" value="Sunday">Sunday</button>
 </form>
 <div style="position:relative; left:80px">
-{% for i in Anime %}
-<a href="home/{{i.anime_id}}">{{ i.anime_name }} {{ i.time }}</a><br>
+{% for anime in Anime %}
+<a href="home/{{anime.anime_id}}">{{ anime.anime_name }} {{ anime.time }}</a><br>
 {% endfor %}
 </div>
 

@@ -29,5 +29,8 @@ urlpatterns = [
     path('calender', app_views.calender_view, name='calender'),
     path('about', app_views.about_view, name='about'),
     path('search', app_views.search_view, name='search'),
-    path('profile', user_views.profile_view, name='profile')
+    path('favorite', app_views.do_favorite, name='favorite'),
+    path('remove_favorite', app_views.remove_favorite, name='remove_favorite'),
+    path('profile_redirect', user_views.profile_redirect, name='profile_redirect'),
+    path('user_profile', user_views.profile_view, name='user_profile')
 ]

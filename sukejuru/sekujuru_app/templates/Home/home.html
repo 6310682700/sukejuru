@@ -30,22 +30,46 @@
                     <div class="col mb-5">
                         <div class="card h-100">
                             {% if request.user.is_authenticated %}
+                            {% if anime in fav_list %}
+                            <div class="btns position-absolute" style="top: 0.5rem; left: 0.5rem;">
+                                <button onclick="Toggle('{{ anime.anime_name }}')" id="{{ anime.anime_name }}" class="fav_btn" style="color:yellow; background-color: transparent; border-color: transparent;">
+                                    <i type="button" class="bi bi-star-fill" style="font-size: 20px; -webkit-text-stroke-width: 1.5px; -webkit-text-stroke-color: black;"></i>
+                                </button>
+                            </div>
+                            {% else %}
                             <div class="btns position-absolute" style="top: 0.5rem; left: 0.5rem;">
                                 <button onclick="Toggle('{{ anime.anime_name }}')" id="{{ anime.anime_name }}" class="fav_btn" style="color:white; background-color: transparent; border-color: transparent;">
                                     <i type="button" class="bi bi-star-fill" style="font-size: 20px; -webkit-text-stroke-width: 1.5px; -webkit-text-stroke-color: black;"></i>
                                 </button>
                             </div>
+                            {% endif %}
+
                             <script>
                                 function Toggle(id){
+                                    var data = id
                                     var fav_btn = document.getElementById(id)
                                     if (fav_btn.style.color == "white") {
-                                        fav_btn.style.color = "yellow"
+                                        fav_btn.style.color = "yellow";
+
+                                        $.ajax({
+                                            type: 'POST',
+                                            url: '{% url 'favorite' %}',
+                                            data: {'data': data,
+                                                'csrfmiddlewaretoken': '{{ csrf_token }}',}
+                                        });
                                     }
                                     else {
-                                        fav_btn.style.color = "white"
+                                        fav_btn.style.color = "white";
+                                        $.ajax({
+                                            type: 'POST',
+                                            url: '{% url 'remove_favorite' %}',
+                                            data: {'data': data,
+                                                'csrfmiddlewaretoken': '{{ csrf_token }}',}
+                                        });
                                     }
                                 }
                             </script>
+
                             {% endif %}
                             <!-- Sale badge-->
                             {% if anime.rating == 5 %}

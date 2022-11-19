@@ -1,0 +1,22 @@
+{% extends 'layout.html' %}
+
+{% load static %}
+<link rel="stylesheet" href="{% static 'index/home.css' %}" type = "text/css">
+
+{% block content %}
+
+<h3>{{anime.anime_name}}</h3>
+
+<form action="{% url 'anime_page' anime.anime_id %}" method="get">
+    {% for pf in platform%}
+    <input class="btn btn-outline-dark mt-auto" type="submit" value={{pf.name}} name="platform">
+    {% endfor %}
+</form>
+
+<h5>EPISODE</h5>
+
+{% for epi in episode %}
+<a href={{epi.link}}"> Episode {{epi.episode}}</a> <br>
+{% endfor %}
+
+{% endblock %}

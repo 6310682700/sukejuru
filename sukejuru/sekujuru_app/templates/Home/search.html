@@ -55,7 +55,7 @@
 
 
 {% for i in result %}
-<h5> {{ i.anime_name }} </h5> <br>
+<a href="home/{{i.anime_id}}"><h5> {{ i.anime_name }} </h5></a> <br>
 <p> {{ i.description }} </p> <br>
 {% endfor %}
 

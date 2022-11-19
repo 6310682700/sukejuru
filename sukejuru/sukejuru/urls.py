@@ -29,5 +29,6 @@ urlpatterns = [
     path('calender', app_views.calender_view, name='calender'),
     path('about', app_views.about_view, name='about'),
     path('search', app_views.search_view, name='search'),
-    path('profile', user_views.profile_view, name='profile')
+    path('profile', user_views.profile_view, name='profile'),
+    path('home/<int:id>', app_views.anime_page, name='anime_page'),
 ]

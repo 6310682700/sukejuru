@@ -4,7 +4,7 @@ from django.test import TestCase, client
 from django.urls import reverse
 from user.models import Favorite, WebUser
 
-from .models import Anime, AnimePlatform, Day, Genre, Season
+from .models import Anime, AnimePlatform, Day, Genre, Season, Episode
 
 
 class testModel(TestCase):
@@ -13,6 +13,9 @@ class testModel(TestCase):
         User.objects.create(username = "non", password = "ang")
         AnimePlatform.objects.create(name = "phone")
         AnimePlatform.objects.create(name = "netflix")
+        # Episode.objects.create()
+        # Episode.objects.first().platform.add(AnimePlatform.objects.get(id=1))
+        # Episode.objects.first().anime.add(Anime.objects.get(Anime.anime_id))
         Day.objects.create(name = "Monday")
         Day.objects.create(name = "Friday")
         Genre.objects.create(name ="Fantasy")
@@ -29,7 +32,6 @@ class testModel(TestCase):
     
     def test_anime_platform(self):                                                          # Test which platform anime in
         animes = Anime.objects.first()
-
         self.assertEqual(animes.platform.get(name = 'phone').name, "phone")
 
     def test_anime_day(self):                                                                # Test what day anime premiere
@@ -53,3 +55,6 @@ class testModel(TestCase):
         rate = Anime.objects.first()
         self.assertEqual(rate.rating, 5)
 
+    def test_anime_name(self):                                                                  # Test anime name
+        animes = Anime.objects.first()
+        self.assertEqual(animes.anime_name, "A")

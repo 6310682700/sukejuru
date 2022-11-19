@@ -5,11 +5,12 @@ import datetime
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect
 from django.urls import reverse
-from .models import AnimePlatform, Genre, Season, Day, Anime
+from .models import *
 from .form import NewUserForm
 from user.models import WebUser, Favorite
 from django.db.models import Q
 from django.contrib.auth.models import User
+from django.core.exceptions import ObjectDoesNotExist
 
 
 # Create your views here.
@@ -50,16 +51,28 @@ def logout_view(request):
 
 
 def home_view(request):
+<<<<<<< HEAD
     anime_list = Anime.objects.all().order_by("-rating")
     fav_ani = None
     if request.user.is_authenticated:
         user = User.objects.get(username=request.user)
         fav_ani = WebUser.objects.get(d_user=user).fav_anime.all()
+=======
+    anime_list = Anime.objects.all().order_by("-rating")    
+    fav_ani = None
+    if request.user.is_authenticated:
+        user = User.objects.get(username=request.user)
+        try:
+            fav_ani = WebUser.objects.get(d_user=user).fav_anime
+        except:
+            fav_ani = None
+>>>>>>> 0caf582aff6472e71cafd35ca4367b57866d3e29
 
     return render(request, 'Home/home.html', {
         'anime_list': anime_list,
         'fav_list' : fav_ani
     })
+
 
 def do_favorite(request):
     if request.method == "POST":
@@ -145,3 +158,22 @@ def search_view(request):
         context.update({"result": search_result})
 
     return render(request, 'Home/search.html', context)
+
+def anime_page(request, id):    
+    anime = Anime.objects.get(anime_id=id)
+    episode = None
+    if request.method == "GET":
+        platform = request.GET.get("platform")
+        try:
+            episode = Episode.objects.filter(anime_id=id, platform_id=AnimePlatform.objects.get(name=platform).id)
+        except:
+            episode = None
+    print(episode)
+    context = {
+        "anime": anime,        
+        "platform": AnimePlatform.objects.all(),
+        "genre": Genre.objects.all(),
+        "season": Season.objects.all(),
+        "episode": episode,
+    }
+    return render(request, 'Home/anime_page.html', context)

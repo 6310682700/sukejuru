@@ -33,9 +33,7 @@
 <link rel="stylesheet" href="{% static 'index/home.css' %}" type = "text/css">
 
 {% block content %}
-
-{{Anime_today.anime_name}}
-{{ Anime_today.time }}
+<a href="home/{{Anime_today.anime_id}}">{{Anime_today.anime_name}} | {{ Anime_today.time }}</a>
 <br>
 <br>
 
@@ -51,7 +49,7 @@
 </form>
 <div style="position:relative; left:80px">
 {% for i in Anime %}
-{{ i.anime_name }} {{ i.time }}<br>
+<a href="home/{{i.anime_id}}">{{ i.anime_name }} {{ i.time }}</a><br>
 {% endfor %}
 </div>
 

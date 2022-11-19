@@ -8,11 +8,6 @@ class AnimePlatform(models.Model):
     def __str__(self):
         return f'{self.name}'
 
-class Episode(models.Model):
-    episode = models.IntegerField(default=None)
-    platform = models.ForeignKey(AnimePlatform, on_delete=models.CASCADE)
-    link = models.CharField(max_length=999)
-
 class Genre(models.Model):
     name = models.CharField(max_length=99)
 
@@ -45,4 +40,16 @@ class Anime(models.Model):
     rating = models.IntegerField(default=5)
 
     def __str__(self):
-        return f'{self.anime_id}: {self.anime_name} {self.description} {self.platform} {self.day} {self.time} {self.genre} {self.season} {self.rating}'
+        return f'{self.anime_id}: {self.anime_name} {self.time} {self.rating}'
+
+class Episode(models.Model):
+    anime = models.ForeignKey(Anime, on_delete=models.CASCADE, default=None)
+    episode = models.IntegerField(default=None)
+    platform = models.ForeignKey(AnimePlatform, on_delete=models.CASCADE)
+    link = models.CharField(max_length=999)
+
+    class Meta:
+        unique_together = [['anime', 'platform', 'episode']]
+
+    def __str__(self):
+        return  f'{self.anime}| Episode {self.episode} {self.platform}'

@@ -28,10 +28,14 @@
 </form>
 <br>
 
-<h5>EPISODE</h5>
-
+<h5>EPISODE</h5> <p>{{current_platform}}</p>
+{% if episode == None %}
+<p>Comming Soon</p>
+{% else %}
 {% for epi in episode %}
 <a href="{{epi.link}}"> Episode {{epi.episode}}</a> <br>
 {% endfor %}
+{% endif %}
+
 
 {% endblock %}

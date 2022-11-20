@@ -153,17 +153,34 @@ def search_view(request):
 
 def anime_page(request, id):    
     anime = Anime.objects.get(anime_id=id)
+
+    # มีกรณีมีตอนในเมะแต่ดันไม่ได้ใส่ platform ไว้ for loop นี้มีไว้เพื่อใส่ platform เข้าไป anime เรื่องนั้น
+    for i in AnimePlatform.objects.all():
+        ep = Episode.objects.filter(anime_id=id, platform_id=i.id)
+        ani_got = AnimePlatform.objects.filter(anime=id, name=i.name)   # ดึงข้อมูลของ platform ทีละอัน
+        if ep.exists() and not ani_got.exists():
+            temp = AnimePlatform.objects.get(name=i.name)
+            anime.platform.add(temp)
+
     episode = None
     if request.method == "GET":
         platform = request.GET.get("platform")        
         try:
-            episode = Episode.objects.filter(anime_id=id, platform_id=AnimePlatform.objects.get(name=platform).id)
-        except:            
-            episode = Episode.objects.filter(anime_id=id, platform_id=AnimePlatform.objects.all().first().id)
+            c_platform = AnimePlatform.objects.get(name=platform)
+            episode = Episode.objects.filter(anime_id=id, platform_id=c_platform.id)
+        except:
+            c_platform = AnimePlatform.objects.all().first()
+            episode = Episode.objects.filter(anime_id=id, platform_id=c_platform.id)
+
+    if not episode.exists():
+        episode = None
     
+    anime_platform = AnimePlatform.objects.filter(anime=id)
+
     context = {
-        "anime": anime,        
-        "platform": AnimePlatform.objects.all(),
+        "anime": anime,
+        "platform": anime_platform,
+        "current_platform": c_platform,
         "genre": Genre.objects.filter(anime=id),
         "season": Season.objects.filter(anime=id),
         "episode": episode,

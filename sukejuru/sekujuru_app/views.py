@@ -89,19 +89,35 @@ def calender_view(request):
         request_day = request.GET.get("day")
 
         if request_day=="All" or request_day==None:
-            anime = Anime.objects.all()
+            select_day = datetime.datetime.now().strftime("%A")
+            anime = Anime.objects.filter(day__name=select_day)
         else:
+            select_day = request_day
             anime = Anime.objects.filter(day__name=request_day)
+            
         
         day_of_week = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
         x = datetime.datetime.today().weekday()
+        # anime_today = Anime.objects.filter(time__gte=datetime.datetime.now().strftime("%H:%M:%S")).order_by('time').first()
         anime_today = Anime.objects.filter(day__name=day_of_week[x], time__gte=datetime.datetime.now().strftime("%H:%M:%S")).order_by('time').first()
-
-        print(anime_today)
+        
+        count = 0
+        while anime_today is None:
+            if x == 6:
+                x = 0
+                anime_today = Anime.objects.filter(day__name=day_of_week[x]).order_by('time').first()
+            else:
+                x += 1
+                anime_today = Anime.objects.filter(day__name=day_of_week[x]).order_by('time').first()
+            count += 1            
 
         context = {
-            "Anime": anime,
-            "Anime_today": anime_today
+            "anime": anime,
+            "now": datetime.datetime.now(),
+            "anime_today": anime_today,
+            "day": count,
+            "anime_today_time": anime_today.time.strftime("%H,%M,%S"),
+            "select_day": select_day,
         }
 
         return render(request, 'Home/calender.html', context)

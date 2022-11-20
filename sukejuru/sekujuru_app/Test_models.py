@@ -4,7 +4,7 @@ from django.test import TestCase, client
 from django.urls import reverse
 from user.models import Favorite, WebUser
 
-from .models import Anime, AnimePlatform, Day, Genre, Season
+from .models import Anime, AnimePlatform, Day, Genre, Season, Episode
 
 
 class testModel(TestCase):
@@ -13,6 +13,12 @@ class testModel(TestCase):
         User.objects.create(username = "non", password = "ang")
         AnimePlatform.objects.create(name = "phone")
         AnimePlatform.objects.create(name = "netflix")
+        # Favorite.objects.create()                                                                         # ไม่ต้องสร้างก็สามารถ run test ได้ ?
+        # Favorite.objects.first().user.add(WebUser.objects.get(id=1))
+        # Favorite.objects.first().anime.add(Anime.objects.get(id=1))
+        # Episode.objects.create()
+        # Episode.objects.first().platform.add(AnimePlatform.objects.get(id=1))
+        # Episode.objects.first().anime.add(Anime.objects.get(Anime.anime_id))
         Day.objects.create(name = "Monday")
         Day.objects.create(name = "Friday")
         Genre.objects.create(name ="Fantasy")
@@ -29,7 +35,6 @@ class testModel(TestCase):
     
     def test_anime_platform(self):                                                          # Test which platform anime in
         animes = Anime.objects.first()
-
         self.assertEqual(animes.platform.get(name = 'phone').name, "phone")
 
     def test_anime_day(self):                                                                # Test what day anime premiere
@@ -53,3 +58,14 @@ class testModel(TestCase):
         rate = Anime.objects.first()
         self.assertEqual(rate.rating, 5)
 
+    def test_anime_name(self):                                                                  # Test anime name
+        animes = Anime.objects.first()
+        self.assertEqual(animes.anime_name, "A")
+    
+    def test_user_have_fav(self):                                                              # Test user have a favorite anime                                                              
+        fav = Favorite.objects.first()
+        self.assertEqual(fav.anime.anime_name, 'A')
+
+    def test_username_have_fav(self):                                                           # Test username have a favorite                                                            
+        fav = Favorite.objects.first()
+        self.assertEqual(fav.user.d_user.username, 'non')

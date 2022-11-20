@@ -5,9 +5,12 @@ import datetime
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect
 from django.urls import reverse
-from .models import AnimePlatform, Genre, Season, Day, Anime
+from .models import *
 from .form import NewUserForm
+from user.models import WebUser, Favorite
 from django.db.models import Q
+from django.contrib.auth.models import User
+from django.core.exceptions import ObjectDoesNotExist
 
 
 # Create your views here.
@@ -49,29 +52,72 @@ def logout_view(request):
 
 def home_view(request):
     anime_list = Anime.objects.all().order_by("-rating")
-    
+    fav_ani = None
+    if request.user.is_authenticated:
+        user = User.objects.get(username=request.user)
+        try:
+            fav_ani = WebUser.objects.get(d_user=user).fav_anime.all()
+        except:
+            fav_ani = None
+
     return render(request, 'Home/home.html', {
-        'anime_list': anime_list
+        'anime_list': anime_list,
+        'fav_list' : fav_ani,
     })
+
+
+def do_favorite(request):
+    if request.method == "POST":
+        data = request.POST['data']
+        anime = Anime.objects.get(anime_name=data)
+        user = WebUser.objects.get(d_user=User.objects.get(username=request.user.username))
+        user.fav_anime.add(anime)
+        
+    return HttpResponseRedirect(reverse('home'))
+
+def remove_favorite(request):
+    if request.method == "POST":
+        data = request.POST['data']
+        anime = Anime.objects.get(anime_name=data)
+        user = WebUser.objects.get(d_user=User.objects.get(username=request.user.username))
+        user.fav_anime.remove(anime)
+        
+    return HttpResponseRedirect(reverse('home'))
 
 def calender_view(request):
     if request.method == "GET":
         request_day = request.GET.get("day")
 
         if request_day=="All" or request_day==None:
-            anime = Anime.objects.all()
+            select_day = datetime.datetime.now().strftime("%A")
+            anime = Anime.objects.filter(day__name=select_day)
         else:
+            select_day = request_day
             anime = Anime.objects.filter(day__name=request_day)
+            
         
         day_of_week = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
         x = datetime.datetime.today().weekday()
+        # anime_today = Anime.objects.filter(time__gte=datetime.datetime.now().strftime("%H:%M:%S")).order_by('time').first()
         anime_today = Anime.objects.filter(day__name=day_of_week[x], time__gte=datetime.datetime.now().strftime("%H:%M:%S")).order_by('time').first()
-
-        print(anime_today)
+        
+        count = 0
+        while anime_today is None:
+            if x == 6:
+                x = 0
+                anime_today = Anime.objects.filter(day__name=day_of_week[x]).order_by('time').first()
+            else:
+                x += 1
+                anime_today = Anime.objects.filter(day__name=day_of_week[x]).order_by('time').first()
+            count += 1            
 
         context = {
-            "Anime": anime,
-            "Anime_today": anime_today
+            "anime": anime,
+            "now": datetime.datetime.now(),
+            "anime_today": anime_today,
+            "day": count,
+            "anime_today_time": anime_today.time.strftime("%H,%M,%S"),
+            "select_day": select_day,
         }
 
         return render(request, 'Home/calender.html', context)
@@ -95,7 +141,7 @@ def search_view(request):
         day = request.GET.get("day")
 
         if query==None:            
-            search_result = Anime.objects.all().order_by("rating")
+            search_result = Anime.objects.all().order_by("-rating")
             context.update({"result": search_result})
         else:
             search_result = Anime.objects.filter(
@@ -120,3 +166,39 @@ def search_view(request):
         context.update({"result": search_result})
 
     return render(request, 'Home/search.html', context)
+
+def anime_page(request, id):    
+    anime = Anime.objects.get(anime_id=id)
+
+    # มีกรณีมีตอนในเมะแต่ดันไม่ได้ใส่ platform ไว้ for loop นี้มีไว้เพื่อใส่ platform เข้าไป anime เรื่องนั้น
+    for i in AnimePlatform.objects.all():
+        ep = Episode.objects.filter(anime_id=id, platform_id=i.id)
+        ani_got = AnimePlatform.objects.filter(anime=id, name=i.name)   # ดึงข้อมูลของ platform ทีละอัน
+        if ep.exists() and not ani_got.exists():
+            temp = AnimePlatform.objects.get(name=i.name)
+            anime.platform.add(temp)
+
+    episode = None
+    if request.method == "GET":
+        platform = request.GET.get("platform")        
+        try:
+            c_platform = AnimePlatform.objects.get(name=platform)
+            episode = Episode.objects.filter(anime_id=id, platform_id=c_platform.id)
+        except:
+            c_platform = AnimePlatform.objects.all().first()
+            episode = Episode.objects.filter(anime_id=id, platform_id=c_platform.id)
+
+    if not episode.exists():
+        episode = None
+    
+    anime_platform = AnimePlatform.objects.filter(anime=id)
+
+    context = {
+        "anime": anime,
+        "platform": anime_platform,
+        "current_platform": c_platform,
+        "genre": Genre.objects.filter(anime=id),
+        "season": Season.objects.filter(anime=id),
+        "episode": episode,
+    }
+    return render(request, 'Home/anime_page.html', context)

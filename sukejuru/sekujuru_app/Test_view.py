@@ -46,6 +46,11 @@ class testView(TestCase):                                                       
         response = self.client.get(reverse('logout'))
         self.assertEqual(response.status_code, 302)
 
+    def test_index_view(self):
+        self.client = Client()
+        response = self.client.post(reverse('index'))
+        self.assertEqual(response.status_code, 302)
+
     def test_user_homepage(self):
         self.client = Client()
         response = self.client.post(reverse('home'))

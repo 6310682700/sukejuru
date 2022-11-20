@@ -4,7 +4,7 @@ from django.urls import reverse
 from django.db.models import Max
 from django.contrib.auth.models import User
 from django.test import TestCase, client
-from .models import AnimePlatform, Genre, Season, Day, Anime
+from .models import *
 from django.urls import reverse 
 from user.models import WebUser
 from .form import NewUserForm
@@ -12,22 +12,26 @@ from django import forms
 from user.views import profile_redirect, profile_view
 
 class testView(TestCase):                                                                               # Test user
-
+    
+    
     def setUp(self):
         User.objects.create_superuser('admin', 'admin@email.com', 'sukejuru')
         self.response = self.client.get(reverse('home'))
         User.objects.create_user('non', 'non@email.com', 'angsuvapattanakul')
-        AnimePlatform.objects.create(name = "phone")
-        AnimePlatform.objects.create(name = "netflix")
+        AnimePlatform.objects.create(name = "Youtube")
+        AnimePlatform.objects.create(name = "Netflix")
         Day.objects.create(name = "Monday")
         Genre.objects.create(name ="Fantasy")
         Season.objects.create(name = "Winter")
         Anime.objects.create(anime_name ="Ant man", anime_id = "1", time= "09:00", rating = 5)
+        Anime.objects.create(anime_name ="Wasp", anime_id = "2", time= "10:00", rating = 5)
         Anime.objects.first().day.add(Day.objects.get(id=1))
         Anime.objects.first().genre.set(Genre.objects.all())
         Anime.objects.first().season.set(Season.objects.all())
         Anime.objects.first().platform.add(AnimePlatform.objects.get(id=1))
         Anime.objects.first().platform.add(AnimePlatform.objects.get(id=2))
+        Anime.objects.get(anime_id=2).platform.add(AnimePlatform.objects.get(id=1))
+        Episode.objects.create(anime=Anime.objects.get(anime_id=2), episode=1, platform=AnimePlatform.objects.get(id=2))
         WebUser.objects.create(d_user = User.objects.first())
         WebUser.objects.first().fav_anime.set(Anime.objects.all()) 
     
@@ -135,7 +139,47 @@ class testView(TestCase):                                                       
         self.client.post(reverse('login'), {"username": "non", "password" :"angsuvapattanakul"})
         response = self.client.post(reverse('remove_favorite'), {'data': 'Ant man'})
         self.assertEqual(response.status_code, 302)
+    def test_anime_page(self):                                                                             # Test episode page
+        self.client = Client()
+        response = self.client.post(reverse('anime_page', kwargs={'id': 1}), {"username": "non","password" :"angsuvapattanakul"})
+        self.assertEqual(response.status_code, 200)
 
+    def test_anime_page_GET_try(self):
+        self.client = Client()
+        response = self.client.get(reverse('anime_page', kwargs={'id': 1}), {"username": "non","password" :"angsuvapattanakul", "platform":'Netflix'})
+        self.assertEqual(response.status_code, 200)
+
+    def test_anime_page_GET_except(self):
+        self.client = Client()
+        response = self.client.get(reverse('anime_page', kwargs={'id': 1}), {"username": "non","password" :"angsuvapattanakul", "platform":'fjlsadkjf'})
+        self.assertEqual(response.status_code, 200)
+
+    def test_anime_page_platform(self):
+        self.client = Client()
+        response = self.client.get(reverse('anime_page', kwargs={'id': 2}), {"username": "non","password" :"angsuvapattanakul", "platform":'Netflix'})
+        self.assertEqual(response.status_code, 200)
+
+    def test_calender(self):
+        self.client = Client()
+        response = self.client.get(reverse('calender'), {"username": "non", "password" :"angsuvapattanakul", "day":"Monday"})
+        self.assertEqual(response.status_code, 200)
+
+    def test_calender_request_All(self):
+        self.client = Client()
+        response = self.client.get(reverse('calender'), {"username": "non", "password" :"angsuvapattanakul", "day":"All"})
+        self.assertEqual(response.status_code, 200)
+
+    def test_home_view_auth(self):
+        self.client = Client()  
+        self.client.post(reverse('login'), {"username": "non","password" :"angsuvapattanakul"})
+        response = self.client.post(reverse('home'))
+        self.assertEqual(response.status_code, 200)
+
+    def test_home_view_auth_su(self):
+        self.client = Client()
+        self.client.post(reverse('login'), {"username": "admin","password" :"sukejuru"})
+        response = self.client.post(reverse('home'))
+        self.assertEqual(response.status_code, 200)
 
 
 class TestAdmin(TestCase):                                                                                # Test admin parts

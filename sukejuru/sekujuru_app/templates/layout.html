@@ -1,5 +1,6 @@
 {% load static %}
 <link rel="stylesheet" href="{% static 'index/home.css' %}" type = "text/css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 <!DOCTYPE html>
 
@@ -31,7 +32,7 @@
                 <a class="navbar-brand nav-link" href="#" role="button" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="False">{{ request.user.username }}</a>
                 <ul class="dropdown-menu" style="left: auto; right: 2px; margin-top:10px; padding: 20px; width:30vh">
                     <div class="dropdown-content">
-                        <li><a class="dropdown-item" href="{% url 'profile' %}">Profile</a></li>
+                        <li><a class="dropdown-item" href="{% url 'profile_redirect' %}">Profile</a></li>
                         <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
                         {% comment %} <li><hr class="dropdown-divider"></li>
                         <li><a class="dropdown-item" href="#">Something else here</a></li> {% endcomment %}

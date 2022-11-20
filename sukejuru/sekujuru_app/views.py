@@ -51,14 +51,11 @@ def logout_view(request):
 
 
 def home_view(request):
-    anime_list = Anime.objects.all().order_by("-rating")    
+    anime_list = Anime.objects.all().order_by("-rating")
     fav_ani = None
     if request.user.is_authenticated:
         user = User.objects.get(username=request.user)
-        try:
-            fav_ani = WebUser.objects.get(d_user=user).fav_anime
-        except:
-            fav_ani = None
+        fav_ani = WebUser.objects.get(d_user=user).fav_anime.all()
 
     return render(request, 'Home/home.html', {
         'anime_list': anime_list,
@@ -67,10 +64,22 @@ def home_view(request):
 
 
 def do_favorite(request):
-    pass
+    if request.method == "POST":
+        data = request.POST['data']
+        anime = Anime.objects.get(anime_name=data)
+        user = WebUser.objects.get(d_user=User.objects.get(username=request.user.username))
+        user.fav_anime.add(anime)
+        
+    return HttpResponseRedirect(reverse('home'))
 
 def remove_favorite(request):
-    pass
+    if request.method == "POST":
+        data = request.POST['data']
+        anime = Anime.objects.get(anime_name=data)
+        user = WebUser.objects.get(d_user=User.objects.get(username=request.user.username))
+        user.fav_anime.remove(anime)
+        
+    return HttpResponseRedirect(reverse('home'))
 
 def calender_view(request):
     if request.method == "GET":

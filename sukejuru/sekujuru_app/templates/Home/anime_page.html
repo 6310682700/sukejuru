@@ -13,6 +13,14 @@
     {% endfor %}
 </form>
 
+{% for gn in genre %}
+<a class="btn btn-outline-dark mt-auto" href="/search">{{gn.name}}</a>
+{% endfor %}
+
+{% for ss in season %}
+<a class="btn btn-outline-dark mt-auto" href="/search">{{ss.name}}</a>
+{% endfor %}
+
 <h5>EPISODE</h5>
 
 {% for epi in episode %}

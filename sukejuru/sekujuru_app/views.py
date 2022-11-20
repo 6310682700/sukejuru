@@ -113,7 +113,7 @@ def search_view(request):
         day = request.GET.get("day")
 
         if query==None:            
-            search_result = Anime.objects.all().order_by("rating")
+            search_result = Anime.objects.all().order_by("-rating")
             context.update({"result": search_result})
         else:
             search_result = Anime.objects.filter(
@@ -148,12 +148,12 @@ def anime_page(request, id):
             episode = Episode.objects.filter(anime_id=id, platform_id=AnimePlatform.objects.get(name=platform).id)
         except:
             episode = None
-    print(episode)
+    
     context = {
         "anime": anime,        
         "platform": AnimePlatform.objects.all(),
-        "genre": Genre.objects.all(),
-        "season": Season.objects.all(),
+        "genre": Genre.objects.filter(anime=id),
+        "season": Season.objects.filter(anime=id),
         "episode": episode,
     }
     return render(request, 'Home/anime_page.html', context)

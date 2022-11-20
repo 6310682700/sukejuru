@@ -13,13 +13,20 @@
     {% endfor %}
 </form>
 
-{% for gn in genre %}
-<a class="btn btn-outline-dark mt-auto" href="/search">{{gn.name}}</a>
+<h5>Genre</h5>
+<form action="{% url 'search' %}" method="get">
+{% for gn in genre %}        
+    <input class="btn btn-outline-dark mt-auto" type="submit" value={{gn.name}} name="genre">
 {% endfor %}
+</form>
 
-{% for ss in season %}
-<a class="btn btn-outline-dark mt-auto" href="/search">{{ss.name}}</a>
-{% endfor %}
+<h5>Season</h5>
+<form action="{% url 'search' %}" method="get">
+    {% for ss in season %}
+    <input class="btn btn-outline-dark mt-auto" type="submit" value={{ss.name}} name="season">
+    {% endfor %}
+</form>
+<br>
 
 <h5>EPISODE</h5>
 

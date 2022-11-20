@@ -62,7 +62,7 @@ def home_view(request):
 
     return render(request, 'Home/home.html', {
         'anime_list': anime_list,
-        'fav_list' : fav_ani
+        'fav_list' : fav_ani,
     })
 
 
@@ -155,11 +155,11 @@ def anime_page(request, id):
     anime = Anime.objects.get(anime_id=id)
     episode = None
     if request.method == "GET":
-        platform = request.GET.get("platform")
+        platform = request.GET.get("platform")        
         try:
             episode = Episode.objects.filter(anime_id=id, platform_id=AnimePlatform.objects.get(name=platform).id)
-        except:
-            episode = None
+        except:            
+            episode = Episode.objects.filter(anime_id=id, platform_id=AnimePlatform.objects.all().first().id)
     
     context = {
         "anime": anime,        

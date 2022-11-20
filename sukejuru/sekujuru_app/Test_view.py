@@ -65,8 +65,8 @@ class testView(TestCase):                                                       
 
     def test_user_login(self):                                                                          # Test user can login with valid account
         user = User.objects.first() 
-        login = self.client.post(reverse('home'), {"username": "non","password" :"angsuvapattanakul"})   
-        self.assertTrue(login) 
+        login = self.client.post(reverse('home'), {"username": "non","password" :"angsuvapattanakul"})
+        self.assertTrue(login)
     
     def test_user_login_fail(self):                                                                      # Test user login with non-valid account
         login = self.client.login(username='blablabla', password='heck') 

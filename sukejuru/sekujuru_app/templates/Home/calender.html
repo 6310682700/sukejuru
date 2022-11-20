@@ -5,7 +5,8 @@
 
 {% block content %}
 <section class="py-5">
-   <div id="event-box" class="text-center mt-3 h1">
+   <div  id="event-box" class="text-center mt-3 h1">
+    <img class="card-img-top" src={{anime.anime_image}} alt="..." />
       <a class="bt-center mt-3 h1" href="home/{{anime_today.anime_id}}">{{anime_today.anime_name}}</a>
    </div>
    <div id="countdownBox" class="text-center mt-3 h1">
@@ -104,7 +105,7 @@
                    <!-- Actions -->
                    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
                        <div class="text-center">
-                           <a class="btn btn-outline-dark mt-auto" href="home/{{anime.anime_id}}"">Start watching</a>                                    
+                           <a class="btn btn-outline-dark mt-auto" href="home/{{anime.anime_id}}">Start watching</a>                                    
                        </div>
                    </div>
                </div>

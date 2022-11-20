@@ -85,6 +85,8 @@ def remove_favorite(request):
     return HttpResponseRedirect(reverse('home'))
 
 def calender_view(request):
+    select_day = datetime.datetime.now().strftime("%A")
+    anime = Anime.objects.filter(day__name=select_day)
     if request.method == "GET":
         request_day = request.GET.get("day")
 
@@ -111,16 +113,16 @@ def calender_view(request):
                 anime_today = Anime.objects.filter(day__name=day_of_week[x]).order_by('time').first()
             count += 1            
 
-        context = {
-            "anime": anime,
-            "now": datetime.datetime.now(),
-            "anime_today": anime_today,
-            "day": count,
-            "anime_today_time": anime_today.time.strftime("%H,%M,%S"),
-            "select_day": select_day,
-        }
+    context = {
+        "anime": anime,
+        "now": datetime.datetime.now(),
+        "anime_today": anime_today,
+        "day": count,
+        "anime_today_time": anime_today.time.strftime("%H,%M,%S"),
+        "select_day": select_day,
+    }
 
-        return render(request, 'Home/calender.html', context)
+    return render(request, 'Home/calender.html', context)
         
 def about_view(request):
     return render(request, 'Home/about.html', {
@@ -178,18 +180,20 @@ def anime_page(request, id):
             temp = AnimePlatform.objects.get(name=i.name)
             anime.platform.add(temp)
 
+    c_platform = None
     episode = None
     if request.method == "GET":
         platform = request.GET.get("platform")        
-        try:
+        try:            
             c_platform = AnimePlatform.objects.get(name=platform)
             episode = Episode.objects.filter(anime_id=id, platform_id=c_platform.id)
         except:
             c_platform = AnimePlatform.objects.all().first()
             episode = Episode.objects.filter(anime_id=id, platform_id=c_platform.id)
 
-    if not episode.exists():
-        episode = None
+    # print(episode.exists())
+    # if not episode.exists():
+    #     episode = None
     
     anime_platform = AnimePlatform.objects.filter(anime=id)
 

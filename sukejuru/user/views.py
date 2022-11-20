@@ -17,10 +17,7 @@ def profile_view(request):
     fav_ani = None
     if request.user.is_authenticated:
         user = User.objects.get(username=request.user)
-        try:
-            fav_ani = WebUser.objects.get(d_user=user).fav_anime.all()
-        except:
-            fav_ani = None
+        fav_ani = WebUser.objects.get(d_user=user).fav_anime.all()
 
     return render(request, 'profile.html', {
         # 'anime_list': anime_list,

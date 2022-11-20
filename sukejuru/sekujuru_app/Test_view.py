@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 from django.test import TestCase, client
 from .models import AnimePlatform, Genre, Season, Day, Anime
 from django.urls import reverse 
-from user.models import WebUser, Favorite
+from user.models import WebUser
 from .form import NewUserForm
 from django import forms
 from user.views import profile_redirect, profile_view
@@ -14,10 +14,9 @@ from user.views import profile_redirect, profile_view
 class testView(TestCase):                                                                               # Test user
 
     def setUp(self):
-        admin = User.objects.create_superuser('admin', 'admin@email.com', 'sukejuru')
+        User.objects.create_superuser('admin', 'admin@email.com', 'sukejuru')
         self.response = self.client.get(reverse('home'))
-        # Favorite.objects.create(user='non', anime=Anime.objects.first)
-        User.objects.create(username = "non", password = "angsuvapattanakul")
+        User.objects.create_user('non', 'non@email.com', 'angsuvapattanakul')
         AnimePlatform.objects.create(name = "phone")
         AnimePlatform.objects.create(name = "netflix")
         Day.objects.create(name = "Monday")
@@ -34,7 +33,7 @@ class testView(TestCase):                                                       
     
     def test_login(self):                                                                           # Test page is availible
         self.client = Client()                                
-        response = self.client.post(reverse('login'), {"username": "non","password" :"angsuvapattanakul"})
+        response = self.client.post(reverse('login'), {"username": "non", "password" :"angsuvapattanakul"})
         self.assertEqual(response.status_code, 302) 
 
     def test_logout(self):
@@ -45,27 +44,27 @@ class testView(TestCase):                                                       
 
     def test_user_homepage(self):
         self.client = Client()
-        response = self.client.post(reverse('home'), {"username": "non","password" :"angsuvapattanakul"})
+        response = self.client.post(reverse('home'))
         self.assertEqual(response.status_code, 200)
 
     def test_user_about(self):
         self.client = Client()
-        response = self.client.post(reverse('about'), {"username": "non","password" :"angsuvapattanakul"})
+        response = self.client.post(reverse('about'))
         self.assertEqual(response.status_code, 200)
 
     def test_user_search(self):
         self.client = Client()
-        response = self.client.post(reverse('search'), {"username": "non","password" :"angsuvapattanakul"})
+        response = self.client.post(reverse('search'))
         self.assertEqual(response.status_code, 200)
 
     def test_user_regist(self):                                                                          # Test user can register
         self.client = Client()
-        response = self.client.post(reverse('register'), {"username": "non","password" :"angsuvapattanakul"})
+        response = self.client.post(reverse('register'))
         self.assertEqual(response.status_code, 200)            
 
     def test_user_login(self):                                                                          # Test user can login with valid account
         user = User.objects.first() 
-        login = self.client.post(reverse('home'), {"username": "non","password" :"angsuvapattanakul"})   
+        login = self.client.post(reverse('home'))   
         self.assertTrue(login) 
     
     def test_user_login_fail(self):                                                                      # Test user login with non-valid account
@@ -107,11 +106,35 @@ class testView(TestCase):                                                       
         self.assertFalse(form.is_valid())
         self.assertEqual(len(form.errors), 4)
 
+    def test_profile_redirect_admin(self):
+        self.client = Client()
+        self.client.post(reverse('login'), {"username": "admin","password" :"sukejuru"})
+        response = self.client.post(reverse('profile_redirect'))
+        self.assertEqual(response.status_code, 302)
 
-    # def test_anime_page(self):                                                                             # Test episode page
-    #     self.client = Client()
-    #     response = self.client.post(reverse('anime_page'), {"username": "non","password" :"angsuvapattanakul"})
-    #     self.assertEqual(response.status_code, 200)        
+    def test_profile_redirect_user(self):
+        self.client = Client()
+        self.client.post(reverse('login'), {"username": "non", "password" :"angsuvapattanakul"})
+        response = self.client.post(reverse('profile_redirect'))
+        self.assertEqual(response.status_code, 302)
+
+    def test_profile_view(self):
+        self.client = Client()
+        self.client.post(reverse('login'), {"username": "non", "password" :"angsuvapattanakul"})
+        response = self.client.post(reverse('user_profile'))
+        self.assertEqual(response.status_code, 200)
+
+    def test_favorite(self):
+        self.client = Client()
+        self.client.post(reverse('login'), {"username": "non", "password" :"angsuvapattanakul"})
+        response = self.client.post(reverse('favorite'), {'data': 'Ant man'})
+        self.assertEqual(response.status_code, 302)
+
+    def test_remove_favorite(self):
+        self.client = Client()
+        self.client.post(reverse('login'), {"username": "non", "password" :"angsuvapattanakul"})
+        response = self.client.post(reverse('remove_favorite'), {'data': 'Ant man'})
+        self.assertEqual(response.status_code, 302)
 
 
 

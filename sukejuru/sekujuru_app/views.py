@@ -7,7 +7,7 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 from .models import *
 from .form import NewUserForm
-from user.models import WebUser, Favorite
+from user.models import WebUser
 from django.db.models import Q
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist

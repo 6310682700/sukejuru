@@ -55,7 +55,10 @@ def home_view(request):
     fav_ani = None
     if request.user.is_authenticated:
         user = User.objects.get(username=request.user)
-        fav_ani = WebUser.objects.get(d_user=user).fav_anime.all()
+        try:
+            fav_ani = WebUser.objects.get(d_user=user).fav_anime.all()
+        except:
+            fav_ani = None
 
     return render(request, 'Home/home.html', {
         'anime_list': anime_list,

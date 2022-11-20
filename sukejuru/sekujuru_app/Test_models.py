@@ -65,3 +65,7 @@ class testModel(TestCase):
     def test_user_have_fav(self):                                                              # Test user have a favorite anime                                                              
         fav = Favorite.objects.first()
         self.assertEqual(fav.anime.anime_name, 'A')
+
+    def test_username_have_fav(self):                                                           # Test username have a favorite                                                            
+        fav = Favorite.objects.first()
+        self.assertEqual(fav.user.d_user.username, 'non')

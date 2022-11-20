@@ -6,7 +6,7 @@
 {% block content %}
 
 <body>
-    <div style="position:relative; left:80px ; padding-top : 20px">
+    <div style="padding-left : 40px ; padding-top : 20px">
         <form action="{% url 'search' %}" method="get">
             <input name="q" type="text" placeholder="Search...">
 
@@ -57,10 +57,10 @@
 
 
     {% for i in result %}
-    <a style="position:relative; left:80px" href="home/{{i.anime_id}}"><h5> {{ i.anime_name }} </h5></a> <br>
-    <body-thai>
-        <p style="position:relative; left:80px"> {{ i.description }} </p> <br>
-    </body-thai>
+        <a style="padding-left : 40px" href="home/{{i.anime_id}}"><h5 style="padding-left : 40px"> {{ i.anime_name }} </h5></a> <br>
+    <bodyth>
+        <p style="padding-left : 40px"> {{ i.description }} </p> <br>
+    </bodyth>
 
 </body>
 {% endfor %}

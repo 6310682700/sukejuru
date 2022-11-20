@@ -13,6 +13,9 @@ class testModel(TestCase):
         User.objects.create(username = "non", password = "ang")
         AnimePlatform.objects.create(name = "phone")
         AnimePlatform.objects.create(name = "netflix")
+        # Favorite.objects.create()                                                                         # ไม่ต้องสร้างก็สามารถ run test ได้ ?
+        # Favorite.objects.first().user.add(WebUser.objects.get(id=1))
+        # Favorite.objects.first().anime.add(Anime.objects.get(id=1))
         # Episode.objects.create()
         # Episode.objects.first().platform.add(AnimePlatform.objects.get(id=1))
         # Episode.objects.first().anime.add(Anime.objects.get(Anime.anime_id))
@@ -58,3 +61,7 @@ class testModel(TestCase):
     def test_anime_name(self):                                                                  # Test anime name
         animes = Anime.objects.first()
         self.assertEqual(animes.anime_name, "A")
+    
+    def test_user_have_fav(self):                                                              # Test user have a favorite anime                                                              
+        fav = Favorite.objects.first()
+        self.assertEqual(fav.anime.anime_name, 'A')

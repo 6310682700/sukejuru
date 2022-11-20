@@ -9,12 +9,14 @@ from django.urls import reverse
 from user.models import WebUser, Favorite
 from .form import NewUserForm
 from django import forms
+from user.views import profile_redirect, profile_view
 
 class testView(TestCase):                                                                               # Test user
 
     def setUp(self):
         admin = User.objects.create_superuser('admin', 'admin@email.com', 'sukejuru')
         self.response = self.client.get(reverse('home'))
+        # Favorite.objects.create(user='non', anime=Anime.objects.first)
         User.objects.create(username = "non", password = "angsuvapattanakul")
         AnimePlatform.objects.create(name = "phone")
         AnimePlatform.objects.create(name = "netflix")
@@ -105,6 +107,7 @@ class testView(TestCase):                                                       
         self.assertFalse(form.is_valid())
         self.assertEqual(len(form.errors), 4)
 
+
     # def test_anime_page(self):                                                                             # Test episode page
     #     self.client = Client()
     #     response = self.client.post(reverse('anime_page'), {"username": "non","password" :"angsuvapattanakul"})
@@ -139,6 +142,13 @@ class TestAdmin(TestCase):                                                      
         client.login(username='admin',password='sukejuru1234')
         response = self.client.post(reverse('home'))
         self.assertEqual(response.status_code, 200)
+
+    def test_admin_to_userprofile(self):
+        self.create_admin()
+        client = Client()
+        client.login(username='admin',password='sukejuru1234')
+        response = self.client.post(reverse('admin:index'))
+        self.assertEqual(response.status_code, 302)
     
     
 

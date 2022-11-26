@@ -3,11 +3,11 @@ from django.shortcuts import render
 from audioop import reverse
 import datetime
 from django.contrib.auth import authenticate, login, logout
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, JsonResponse
 from django.urls import reverse
 from .models import *
 from .form import NewUserForm
-from user.models import WebUser
+from user.models import WebUser, UserRating
 from django.db.models import Q
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
@@ -84,9 +84,31 @@ def remove_favorite(request):
         
     return HttpResponseRedirect(reverse('home'))
 
+def rate_anime(request):
+    if request.method == "POST":
+        el_id = request.POST.get('el_id')
+        val = request.POST.get('val')
+        user = WebUser.objects.get(d_user=request.user)
+        anime = Anime.objects.get(anime_name=el_id)
+        if len(UserRating.objects.filter(user_name=user, anime_name=anime)) == 0:
+            UserRating.objects.create(user_name=user, anime_name=anime)
+        obj = UserRating.objects.get(user_name=user, anime_name=anime)
+        obj.rating = val
+        obj.save()
+        return JsonResponse({'success':'true', 'score': val}, safe=False)
+    return JsonResponse({'success':'false'})
+
 def calender_view(request):
     select_day = datetime.datetime.now().strftime("%A")
     anime = Anime.objects.filter(day__name=select_day)
+    fav_ani = None
+    if request.user.is_authenticated:
+        user = User.objects.get(username=request.user)
+        try:
+            fav_ani = WebUser.objects.get(d_user=user).fav_anime.all()
+        except:
+            fav_ani = None
+
     if request.method == "GET":
         request_day = request.GET.get("day")
 
@@ -96,7 +118,6 @@ def calender_view(request):
         else:
             select_day = request_day
             anime = Anime.objects.filter(day__name=request_day)
-            
         
         day_of_week = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
         x = datetime.datetime.today().weekday()
@@ -114,12 +135,13 @@ def calender_view(request):
             count += 1            
 
     context = {
-        "anime": anime,
+        "Anime": anime.order_by('time'),
         "now": datetime.datetime.now(),
         "anime_today": anime_today,
         "day": count,
         "anime_today_time": anime_today.time.strftime("%H,%M,%S"),
         "select_day": select_day,
+        'fav_list' : fav_ani,
     }
 
     return render(request, 'Home/calender.html', context)
@@ -129,11 +151,21 @@ def about_view(request):
     })
 
 def search_view(request):
+    fav_ani = None
+    if request.user.is_authenticated:
+        user = User.objects.get(username=request.user)
+        try:
+            fav_ani = WebUser.objects.get(d_user=user).fav_anime.all()
+        except:
+            fav_ani = None
+
     context = {
         "platform": AnimePlatform.objects.all(),
         "genre": Genre.objects.all(),
         "season": Season.objects.all(),
+        'fav_list' : fav_ani,
     }
+
     if request.method == "GET":
         query = request.GET.get("q")
         platform = request.GET.get("platform")
@@ -171,6 +203,11 @@ def search_view(request):
 
 def anime_page(request, id):    
     anime = Anime.objects.get(anime_id=id)
+    userRating = None
+    if len(UserRating.objects.filter(user_name=WebUser.objects.get(d_user=request.user), anime_name=anime)) == 0:
+        userRating = UserRating.objects.create(user_name=WebUser.objects.get(d_user=request.user), anime_name=anime)
+    else:
+        userRating = UserRating.objects.get(user_name=WebUser.objects.get(d_user=request.user), anime_name=anime)
 
     # มีกรณีมีตอนในเมะแต่ดันไม่ได้ใส่ platform ไว้ for loop นี้มีไว้เพื่อใส่ platform เข้าไป anime เรื่องนั้น
     for i in AnimePlatform.objects.all():
@@ -204,5 +241,6 @@ def anime_page(request, id):
         "genre": Genre.objects.filter(anime=id),
         "season": Season.objects.filter(anime=id),
         "episode": episode,
+        "user_rating": userRating,
     }
     return render(request, 'Home/anime_page.html', context)

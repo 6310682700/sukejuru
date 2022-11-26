@@ -11297,3 +11297,11 @@ textarea.form-control-lg {
   }
   
 }
+
+.checked {
+  color: orange;
+}
+.rating-btn {
+  background-color: inherit !important;
+  border: 0 !important;
+}

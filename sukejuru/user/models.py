@@ -28,3 +28,8 @@ class Favorite(models.Model):
 
     class Meta:
         unique_together = [['user', 'anime']]
+
+class UserRating(models.Model):
+    user_name = models.ForeignKey(WebUser, on_delete=models.CASCADE)
+    anime_name = models.ForeignKey(Anime, on_delete=models.CASCADE)
+    rating = models.IntegerField(default=0)

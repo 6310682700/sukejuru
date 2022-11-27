@@ -85,18 +85,20 @@ def remove_favorite(request):
     return HttpResponseRedirect(reverse('home'))
 
 def rate_anime(request):
-    if request.method == "POST":
-        el_id = request.POST.get('el_id')
-        val = request.POST.get('val')
-        user = WebUser.objects.get(d_user=request.user)
-        anime = Anime.objects.get(anime_name=el_id)
-        if len(UserRating.objects.filter(user_name=user, anime_name=anime)) == 0:
-            UserRating.objects.create(user_name=user, anime_name=anime)
-        obj = UserRating.objects.get(user_name=user, anime_name=anime)
-        obj.rating = val
-        obj.save()
-        return JsonResponse({'success':'true', 'score': val}, safe=False)
-    return JsonResponse({'success':'false'})
+    if request.user.is_authenticated:
+        if request.method == "POST":
+            el_id = request.POST.get('el_id')
+            val = request.POST.get('val')
+            user = WebUser.objects.get(d_user=request.user)
+            anime = Anime.objects.get(anime_name=el_id)
+            if len(UserRating.objects.filter(user_name=user, anime_name=anime)) == 0:
+                UserRating.objects.create(user_name=user, anime_name=anime)
+            obj = UserRating.objects.get(user_name=user, anime_name=anime)
+            obj.rating = val
+            obj.save()
+            return JsonResponse({'success':'true', 'score': val}, safe=False)
+        return JsonResponse({'success':'false'})
+    return HttpResponseRedirect(reverse('anime_page'))
 
 def calender_view(request):
     select_day = datetime.datetime.now().strftime("%A")
@@ -204,10 +206,12 @@ def search_view(request):
 def anime_page(request, id):    
     anime = Anime.objects.get(anime_id=id)
     userRating = None
-    if len(UserRating.objects.filter(user_name=WebUser.objects.get(d_user=request.user), anime_name=anime)) == 0:
-        userRating = UserRating.objects.create(user_name=WebUser.objects.get(d_user=request.user), anime_name=anime)
-    else:
-        userRating = UserRating.objects.get(user_name=WebUser.objects.get(d_user=request.user), anime_name=anime)
+    
+    if request.user.is_authenticated:
+        if len(UserRating.objects.filter(user_name=WebUser.objects.get(d_user=request.user), anime_name=anime)) == 0:
+            userRating = UserRating.objects.create(user_name=WebUser.objects.get(d_user=request.user), anime_name=anime)
+        else:
+            userRating = UserRating.objects.get(user_name=WebUser.objects.get(d_user=request.user), anime_name=anime)
 
     # มีกรณีมีตอนในเมะแต่ดันไม่ได้ใส่ platform ไว้ for loop นี้มีไว้เพื่อใส่ platform เข้าไป anime เรื่องนั้น
     for i in AnimePlatform.objects.all():

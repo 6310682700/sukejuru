@@ -96,6 +96,12 @@ def rate_anime(request):
             obj = UserRating.objects.get(user_name=user, anime_name=anime)
             obj.rating = val
             obj.save()
+            rating_list = UserRating.objects.filter(anime_name=anime)
+            rating = 0
+            for anime_rating in rating_list:
+                rating += anime_rating.rating
+            anime.rating = rating / len(rating_list)
+            anime.save()
             return JsonResponse({'success':'true', 'score': val}, safe=False)
         return JsonResponse({'success':'false'})
     return HttpResponseRedirect(reverse('anime_page'))
